@@ -1,0 +1,6 @@
+.navbar-edge {
+    @apply flex grow basis-0 gap-10;
+}
+a {
+    @apply hover:underline underline-offset-2;
+}
