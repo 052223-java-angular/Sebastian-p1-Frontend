@@ -9,6 +9,10 @@ h1 {
 form input[type="text"] {
     @apply border mt-0 p-1 leading-none rounded-md border-slate-500 w-full;
 }
+/* something didn't like combined attribute selector */
+form input[type="password"] {
+    @apply border mt-0 p-1 leading-none rounded-md border-slate-500 w-full;
+}
 
 form label {
     @apply inline-block;
@@ -16,4 +20,8 @@ form label {
 
 input:focus {
     @apply outline-blue-700;
+}
+
+p {
+    @apply my-3 p-3 w-10/12 border-8 rounded-md mx-auto;
 }

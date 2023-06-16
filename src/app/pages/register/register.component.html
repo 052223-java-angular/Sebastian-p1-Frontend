@@ -4,12 +4,17 @@
     <form [formGroup]="registerFormGroup" (ngSubmit)="submitForm()">
         <label for="username">Username:</label>
         <input type="text" id="username" formControlName="username">
+        <div *ngIf="registerFormGroup.controls['username'].invalid && (registerFormGroup.controls['username'].dirty ||
+        registerFormGroup.controls['username'].touched)" class="alert">username must be 8-20 chars, cannot start or end
+        with . or _, and can't have . and _ in succession</div>
+        <div class="mt-2 border-b border-black"></div>
         <label for="password">Password:</label>
-        <input type="text" id="password" formControlName="password">
+        <input type="password" id="password" formControlName="password">
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="text" id="confirmPassword" formControlName="confirmPassword">
+        <input type="password" id="confirmPassword" formControlName="confirmPassword">
         <button class="text-center block mx-auto mt-2 rounded
-         py-1 px-2 bg-black text-white" type="submit" id="submit" [disabled]="registerFormGroup.invalid">Register</button>
+         py-1 px-2 bg-black text-white" type="submit" id="submit" [disabled]="!registerFormGroup.valid">Register</button>
+         <div *ngIf="nonMatching">Nonmatching Password</div>
     </form>
 </div>
 <div class="my-6 text-center">
