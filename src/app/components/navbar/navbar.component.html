@@ -9,6 +9,7 @@
         <li><h2 class="text-2xl">PureDatabase2</h2></li>
     </ul>
     <ul *ngIf="authService.loggedIn; else notLoggedIn" class="navbar-edge justify-end">
+        <li><a routerLink="profile">Profile</a></li>
         <li class="falsea" (click)="logout()">Logout</li>
     </ul>
     <ng-template #notLoggedIn>

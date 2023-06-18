@@ -1,2 +1,10 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
+<div class="flex flex-col min-h-screen">
+    <app-navbar></app-navbar>
+    <div class="grow">
+        <router-outlet></router-outlet>
+    </div>
+    <footer class="py-1 flex justify-around border-t-2 border-pdextended-signal-iolet">
+        <p>Pure Data Object Wiki/Database</p>
+        <p>&copy; Sebastian Shader</p>
+    </footer>
+</div>
