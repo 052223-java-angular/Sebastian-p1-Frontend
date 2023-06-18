@@ -2,6 +2,6 @@
     @apply flex grow basis-0 gap-10 content-around;
 }
 
-li > a {
+li > a, li {
     @apply align-middle text-lg;
 }

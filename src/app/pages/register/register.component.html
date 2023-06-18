@@ -3,19 +3,19 @@
 <div class="card">
     <form [formGroup]="registerFormGroup" (ngSubmit)="submitForm()">
         <label for="username">Username:</label>
-        <input type="text" id="username" formControlName="username">
+        <input type="text" id="username" autocomplete="username" required formControlName="username">
         <div *ngIf="registerFormGroup.controls['username'].invalid && (registerFormGroup.controls['username'].dirty ||
         registerFormGroup.controls['username'].touched)" class="alert">username must be 8-20 characters, cannot start or end
         with . or _, and can't have . and _ in succession</div>
         <div class="mt-2 border-b border-black"></div>
         <label for="password">Password:</label>
-        <input type="password" id="password" formControlName="password">
+        <input type="password" id="password" autocomplete="new-password" required formControlName="password">
         <div *ngIf="registerFormGroup.controls['password'].invalid && (registerFormGroup.controls['password'].dirty ||
         registerFormGroup.controls['password'].touched)" class="alert">password must be at least 8 characters
         and contain one number.</div>
         <div class="mt-2 border-b border-black"></div>
         <label for="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" formControlName="confirmPassword">
+        <input type="password" id="confirmPassword" autocomplete="new-password" required formControlName="confirmPassword">
         <button class="text-center block mx-auto mt-2 rounded
          py-1 px-2 bg-black text-white" type="submit" id="submit" [disabled]="!registerFormGroup.valid">Register</button>
          <div *ngIf="nonMatching">Nonmatching Password</div>
