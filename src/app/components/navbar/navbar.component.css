@@ -1,6 +1,7 @@
 .navbar-edge {
-    @apply flex grow basis-0 gap-10;
+    @apply flex grow basis-0 gap-10 content-around;
 }
-a {
-    @apply hover:underline underline-offset-2;
+
+li > a, li {
+    @apply align-middle text-lg;
 }
