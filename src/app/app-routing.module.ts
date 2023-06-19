@@ -7,19 +7,26 @@ import { SearchComponent } from './pages/search/search.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { LibraryComponent } from './pages/library/library.component';
+import { ObjectComponent } from './pages/object/object.component';
 
 const routes: Routes = [
-  { path: '', component: AboutComponent },
+  { path: 'libraries/:libName/:objName', component: ObjectComponent},
+  { path: 'libraries/:name', component: LibraryComponent },
   { path: 'libraries', component: LibrariesComponent },
   { path: 'search', component: SearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'about', component: AboutComponent },
+  { path: '', redirectTo: 'about', pathMatch: "full" },
   { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {
+      bindToComponentInputs: true
+    })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -1,1 +1,4 @@
 @import '../page.css';
+:host {
+    @apply flex justify-center flex-col items-center grow h-full;
+}

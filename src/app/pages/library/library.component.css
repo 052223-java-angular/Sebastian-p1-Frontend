@@ -1,9 +1,8 @@
-
-.lib-grid {
+.obj-grid {
     @apply grid w-10/12 border-slate-800 border-t-2 border-x-2;
     grid-template-columns: 0.75fr 0.75fr 1.75fr 1.5fr;
 }
 
-.lib-grid > * {
+.obj-grid > * {
     @apply border border-slate-300 px-1;
 }

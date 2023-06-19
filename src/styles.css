@@ -9,6 +9,12 @@ body {
     @apply font-sans;
 }
 
+html, body {
+  min-height: 100vh;
+  height: auto;
+  margin: 0;
+}
+
 a:hover {
     @apply underline underline-offset-2;
 }
