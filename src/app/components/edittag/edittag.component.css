@@ -1,0 +1,44 @@
+.scrollbox {
+    height: 100%;
+    overflow-y: scroll;
+    min-width: 2em;
+    flex-grow: 1;
+}
+
+.scrollbox-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-width: 2em;
+    flex-grow: 1;
+}
+
+.scrollbox-title {
+    display: flex;
+    width: 100%;
+    @apply mx-1
+    flex-grow: 0;
+}
+
+.tag-container {
+    @apply h-full;
+    display: flex;
+}
+
+.tag-pool {
+    height: 100%;
+    display: flex;
+    flex-grow: 1;
+}
+
+.base-button {
+    @apply bg-slate-400 border-slate-300 border rounded-lg p-1;
+}
+
+.addTag-button {
+
+}
+
+.addEntityTag-button {
+
+}
