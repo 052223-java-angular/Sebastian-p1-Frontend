@@ -16,7 +16,7 @@
 .scrollbox-title {
     display: flex;
     width: 100%;
-    @apply mx-1
+    @apply mx-1;
     flex-grow: 0;
 }
 
