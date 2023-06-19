@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PdObject } from 'src/app/models/pd-object';
-import { LibraryServiceService } from 'src/app/services/library-service.service';
+import { LibraryService } from 'src/app/services/library.service';
 
 @Component({
   selector: 'app-object',
@@ -14,7 +14,7 @@ export class ObjectComponent implements OnInit {
 
   pdObject: PdObject | null = null;
 
-  constructor(private libraryService: LibraryServiceService, private toastrService: ToastrService) {}
+  constructor(private libraryService: LibraryService, private toastrService: ToastrService) {}
 
   ngOnInit(): void {
     if(typeof(this.objName) !== "string" || typeof(this.libName) !== "string") {

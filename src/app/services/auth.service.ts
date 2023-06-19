@@ -8,7 +8,7 @@ import jwtDecode, { JwtPayload } from "jwt-decode";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
   auth: Auth | null = null;
   loggedIn: boolean = false;
   expDate: Date | null = null;

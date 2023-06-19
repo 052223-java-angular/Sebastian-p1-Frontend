@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginPayload } from 'src/app/models/login-payload';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +13,7 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
 export class LoginComponent {
   formGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder, protected authService: AuthServiceService, private toastr: ToastrService,
+  constructor(private fb: FormBuilder, protected authService: AuthService, private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit() {

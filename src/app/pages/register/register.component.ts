@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn } from '@angular/forms'
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RegisterPayload } from 'src/app/models/register-payload';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +13,7 @@ import { AuthServiceService } from 'src/app/services/auth-service.service';
 export class RegisterComponent {
   registerFormGroup!: FormGroup;
   nonMatching: boolean = false;
-  constructor(private fb: FormBuilder, private authService: AuthServiceService, private toastr: ToastrService,
+  constructor(private fb: FormBuilder, private authService: AuthService, private toastr: ToastrService,
     private router: Router) { }
 
   ngOnInit() {
