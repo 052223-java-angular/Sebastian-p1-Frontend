@@ -1,6 +1,6 @@
 import { User } from "./user";
 import { LibraryTag } from "./library-tag";
-import { PdObject } from "./pdobject";
+import { PdObject } from "./pd-object";
 
 export interface PdLibrary {
     id: string,
@@ -9,6 +9,6 @@ export interface PdLibrary {
     description: string,
     recentVersion: string,
     lastEditedBy: User,
-    objects: [PdObject],
-    tags: [LibraryTag]
+    objects: PdObject[],
+    libraryTags: LibraryTag[]
 }

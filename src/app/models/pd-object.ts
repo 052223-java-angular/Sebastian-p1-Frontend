@@ -6,8 +6,10 @@ export interface PdObject {
     id: string,
     name: string,
     library: PdLibrary,
+    author?: string,
     libraryVersion: string | null,
     description: string | null,
-    comments: [ObjectComment],
-    tags: [ObjectTag]
+    helpText: string | null,
+    comments: ObjectComment[],
+    objectTags: ObjectTag[]
 }

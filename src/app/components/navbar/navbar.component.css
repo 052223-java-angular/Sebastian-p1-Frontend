@@ -1,7 +1,7 @@
 .navbar-edge {
-    @apply flex grow basis-0 gap-10 content-around;
+    @apply flex grow basis-0 content-around gap-10;
 }
 
-li > a, li {
+li {
     @apply align-middle text-lg;
 }

@@ -97,7 +97,6 @@ export class AuthServiceService {
 
   login(payload: LoginPayload, observableVals: {next: (value: any) => void, error: (error:any) => void}):
   void {
-    console.log(payload);
     this.http.post<Auth>(`${this.baseUrl}/auth/login`, payload).subscribe({
       next: (value: Auth) => {
         this.auth = value;

@@ -1,0 +1,7 @@
+.entityInfo {
+    @apply my-3 p-3 w-10/12 border-8 rounded-md mx-auto;
+}
+
+.entityInfo > h2 {
+    @apply text-lg;
+}

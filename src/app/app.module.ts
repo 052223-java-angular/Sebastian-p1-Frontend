@@ -16,6 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { LibraryComponent } from './pages/library/library.component';
+import { ObjectComponent } from './pages/object/object.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
+    LibraryComponent,
+    ObjectComponent,
   ],
   imports: [
     BrowserModule,

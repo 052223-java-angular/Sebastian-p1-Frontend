@@ -1,1 +1,14 @@
-<p>libraries works!</p>
+<h1 class="text-center my-4 text-3xl">Libraries</h1>
+<div class="mx-auto lib-grid rounded-t mt-5">
+    <p>Name</p><p>Author</p><p>Description</p><p>Tags</p>
+</div>
+<div class="mx-auto lib-grid rounded-b border-b-2">
+    <ng-container *ngFor="let library of libraries">
+        <div><a class="justify-start" [routerLink]="[library.name]">{{library.name}}</a></div>
+        <p>{{library.author}}</p>
+        <p>{{library.description}}</p>
+        <p>
+            <ng-container *ngFor="let tag of library.libraryTags; let last = last">{{tag.tag.name + (last ? "" : ", ")}}</ng-container>
+        </p>
+    </ng-container>
+</div>
