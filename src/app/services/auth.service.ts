@@ -37,12 +37,16 @@ export class AuthService {
     }
   }
 
-  postWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}) {
+  postWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
     if(this.auth != null) {
       const currentDate: Date = new Date();
-      if(this.expDate!.getTime() < currentDate.getTime()) return observableVals.error("Login Expired");
+      if(this.expDate!.getTime() < currentDate.getTime()) {
+        observableVals.error("Login Expired");
+        return;
+      }
       let token: string = this.auth.token!;
-      this.http.post<void>(`${this.baseUrl}/${urlSuffix}`, {headers: {"auth-token": token}}).subscribe({
+      this.http.post<void>(`${this.baseUrl}/${urlSuffix}`, payload, {headers: {"auth-token": token}})
+      .subscribe({
         next: value => {
           observableVals.next(value);
         },
@@ -50,7 +54,10 @@ export class AuthService {
           observableVals.error(error.error.message);
         }
       })
-    } else observableVals.error("Please log in");
+    } else {
+      observableVals.error("Please log in");
+      return;
+    }
   }
 
   getWithAuth<T>(urlSuffix: string, observableVals: {next: (value: any) => void, error: (error: string) => void}) {
@@ -95,7 +102,7 @@ export class AuthService {
     })
   }
 
-  login(payload: LoginPayload, observableVals: {next: (value: any) => void, error: (error:any) => void}):
+  login(payload: LoginPayload, observableVals: {next: (value: any) => void, error: (error:string) => void}):
   void {
     this.http.post<Auth>(`${this.baseUrl}/auth/login`, payload).subscribe({
       next: (value: Auth) => {
