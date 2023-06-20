@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LibraryService } from 'src/app/services/library.service';
-import { PdLibrary } from 'src/app/models/pd-library';
 import { ToastrService } from 'ngx-toastr';
+import { LibrarySummary } from 'src/app/models/library-summary';
 
 @Component({
   selector: 'app-libraries',
@@ -9,10 +9,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./libraries.component.css']
 })
 export class LibrariesComponent {
-  libraries: PdLibrary[] = [];
+  libraries: LibrarySummary[] = [];
   constructor(private libraryService: LibraryService, private toastrService: ToastrService) {
     libraryService.getLibraries({
-      next: (value: PdLibrary[]) => {
+      next: (value: LibrarySummary[]) => {
         this.libraries = value.sort((a, b) => 
           (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
       },

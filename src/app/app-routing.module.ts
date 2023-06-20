@@ -9,8 +9,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { ObjectComponent } from './pages/object/object.component';
+import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 
 const routes: Routes = [
+  { path: 'libraries/:libName/:objName/edit', component: EditObjectComponent},
   { path: 'libraries/:libName/:objName', component: ObjectComponent},
   { path: 'libraries/:name', component: LibraryComponent },
   { path: 'libraries', component: LibrariesComponent },

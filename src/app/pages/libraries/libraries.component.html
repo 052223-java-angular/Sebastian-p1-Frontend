@@ -8,7 +8,8 @@
         <p>{{library.author}}</p>
         <p>{{library.description}}</p>
         <p>
-            <ng-container *ngFor="let tag of library.libraryTags; let last = last">{{tag.tag.name + (last ? "" : ", ")}}</ng-container>
+            <ng-container *ngFor="let tag of library.tags; let last = last">{{tag + (last ? "" : ", ")}}
+            </ng-container>
         </p>
     </ng-container>
 </div>
