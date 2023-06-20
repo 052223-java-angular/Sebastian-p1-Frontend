@@ -23,5 +23,5 @@ input:focus {
 }
 
 p {
-    @apply my-3 p-3 w-10/12 border-8 rounded-md mx-auto;
+    @apply my-3 py-2 px-3 w-10/12 border-8 rounded-md mx-auto;
 }
