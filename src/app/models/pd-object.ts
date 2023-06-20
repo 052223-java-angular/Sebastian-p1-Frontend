@@ -11,5 +11,5 @@ export interface PdObject {
     description: string | null,
     helpText: string | null,
     comments: ObjectComment[],
-    objectTags: ObjectTag[]
+    objectTags: ObjectTag[] // editing takes strings
 }

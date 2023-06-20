@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthServiceService } from 'src/app/services/auth-service.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  constructor(protected authService: AuthServiceService, private toastr: ToastrService) {};
+  constructor(protected authService: AuthService, private toastr: ToastrService) {};
 
   logout() {
     this.authService.logout();

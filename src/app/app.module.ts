@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { ObjectComponent } from './pages/object/object.component';
+import { EdittagComponent } from './components/edittag/edittag.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ObjectComponent } from './pages/object/object.component';
     ProfileComponent,
     LibraryComponent,
     ObjectComponent,
+    EdittagComponent,
   ],
   imports: [
     BrowserModule,

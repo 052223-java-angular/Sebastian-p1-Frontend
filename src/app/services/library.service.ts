@@ -7,7 +7,7 @@ import { PdObject } from '../models/pd-object';
 @Injectable({
   providedIn: 'root'
 })
-export class LibraryServiceService {
+export class LibraryService {
   baseUrl='http://localhost:8080/puredatabase2/api/libraries'
 
   constructor(private http: HttpClient) { }

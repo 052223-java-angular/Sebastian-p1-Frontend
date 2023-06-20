@@ -1,7 +1,13 @@
+@import "src/css/tags";
+
 .entityInfo {
-    @apply my-3 p-3 w-10/12 border-8 rounded-md mx-auto;
+    @apply my-3 px-1 w-10/12 border-8 rounded-md mx-auto;
 }
 
-.entityInfo > h2 {
+.entityInfo h2 {
     @apply text-lg;
+}
+
+.tag-box {
+    @apply flex grow basis-0 content-center flex-wrap my-1;
 }

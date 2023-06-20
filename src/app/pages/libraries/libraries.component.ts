@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LibraryServiceService } from 'src/app/services/library-service.service';
+import { LibraryService } from 'src/app/services/library.service';
 import { PdLibrary } from 'src/app/models/pd-library';
 import { ToastrService } from 'ngx-toastr';
 
@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class LibrariesComponent {
   libraries: PdLibrary[] = [];
-  constructor(private libraryService: LibraryServiceService, private toastrService: ToastrService) {
+  constructor(private libraryService: LibraryService, private toastrService: ToastrService) {
     libraryService.getLibraries({
       next: (value: PdLibrary[]) => {
         this.libraries = value.sort((a, b) => 

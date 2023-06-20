@@ -1,9 +1,11 @@
-<div class="flex justify-around">
+<div class="flex justify-around w-10/12 mx-auto">
     <h1 class="text-center grow basis-0 mb-4 mt-3 text-3xl">Library: {{pdLibrary?.name}}</h1>
-    <div class="my-4 grow basis-0">
-        <h2 class="text-xl w-full text-left">
-            Tags: <ng-container *ngFor="let tag of pdLibrary?.libraryTags; let last = last">
-                {{tag.tag.name + (last ? "" : ", ")}}</ng-container></h2>
+    <div class="tag-box content-center">
+        <h2 class="basis-0 grow-0 text-xl w-full text-left">Tags: </h2>
+        <div class="grow flex flex-wrap">
+            <span class="base-button box-border" *ngFor="let tag of pdLibrary?.libraryTags; let last = last">
+                {{tag.tag.name + (last ? "" : " ")}}</span>
+        </div>
     </div>
 </div>
 

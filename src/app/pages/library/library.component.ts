@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { PdLibrary } from 'src/app/models/pd-library';
-import { LibraryServiceService } from 'src/app/services/library-service.service';
+import { LibraryService } from 'src/app/services/library.service';
 
 @Component({
   selector: 'app-library',
@@ -11,7 +11,7 @@ import { LibraryServiceService } from 'src/app/services/library-service.service'
 export class LibraryComponent implements OnInit{
   @Input() name?: string | null;
   pdLibrary: PdLibrary | null = null;
-  constructor(private libraryService: LibraryServiceService, private toastrService: ToastrService) {}
+  constructor(private libraryService: LibraryService, private toastrService: ToastrService) {}
   ngOnInit(): void {
       if(typeof(this.name) !== "string") {
         this.toastrService.error("No Library Provided");
