@@ -9,10 +9,6 @@
     @apply border border-slate-300 px-1;
 }
 
-.twelfth {
-    margin-right: 8.333333%;
-}
-
 .tag-box {
     @apply flex grow basis-0 content-center flex-wrap;
 }

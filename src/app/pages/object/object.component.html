@@ -4,10 +4,12 @@
         <h2 *ngIf="pdObject?.author && pdObject?.author !== ''"><b>Author:</b> {{pdObject?.author}}</h2>
         <h2><b>Description:</b> {{pdObject?.description}}</h2>
     </div>
-    <div class="my-1 grow basis-0 flex">
+    <div class="tag-box">
         <h2 class="basis-0 grow-0 text-xl w-full text-left">Tags: </h2>
-        <span class="base-button" *ngFor="let tag of pdObject?.objectTags; let last = last">
-            {{tag.tag.name + (last ? "" : " ")}}</span>
+        <div class="grow flex flex-wrap">
+            <span class="base-button box-border" *ngFor="let tag of pdObject?.objectTags; let last = last">
+                {{tag.tag.name + (last ? "" : " ")}}</span>
+        </div>
     </div>
 </div>
 <h2 class="text-2xl text-center">Help/Detail Text</h2>
