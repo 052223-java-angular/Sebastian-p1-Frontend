@@ -1,0 +1,6 @@
+
+.base-button {
+    @apply bg-slate-500 text-white h-fit border rounded-lg p-1;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
