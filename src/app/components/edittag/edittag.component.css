@@ -1,45 +1,94 @@
+:host {
+    @apply flex justify-center items-center grow h-full;
+}
+
 .scrollbox {
-    height: 100%;
     overflow-y: scroll;
-    min-width: 2em;
     flex-grow: 1;
+    min-height: 4em;
+    @apply border border-indigo-800;
 }
 
 .scrollbox-container {
-    height: 100%;
     display: flex;
     flex-direction: column;
-    min-width: 2em;
-    flex-grow: 1;
+    flex-grow: 0;
+    flex-basis: 220px;
 }
 
 .scrollbox-title {
     display: flex;
-    width: 100%;
-    @apply mx-1;
+    @apply mx-1 flex-wrap content-center justify-between;
     flex-grow: 0;
 }
 
 .tag-container {
-    @apply h-full;
+    @apply h-full grow;
     display: flex;
 }
 
 .tag-pool {
     height: 100%;
+    @apply my-2 mx-1 p-1 border-2 rounded border-blue-800 flex-wrap;
     display: flex;
     flex-grow: 1;
+    flex-basis: 0;
 }
 
 .base-button {
-    @apply bg-slate-400 border-slate-300 border rounded-lg p-1;
+    @apply bg-slate-500 text-white h-fit border rounded-lg p-1;
+    margin-left: 0.15rem;
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
 }
 
-/*.addTag-button {
-
+.base-button:hover {
+    @apply underline underline-offset-2;
 }
 
-.addEntityTag-button {
-
+#addButton {
+    width: 2rem;
 }
-*/
+
+.cancel-button {
+    @apply bg-red-500 text-white inline-block h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.edit-button {
+    @apply bg-blue-500 text-white inline-block h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+input[type="text"] {
+    @apply border mt-0 p-1 leading-none rounded-md border-slate-500 w-full;
+}
+
+button:hover:not([disabled]) {
+    @apply underline underline-offset-2
+}
+
+.edit-button:disabled {
+    @apply bg-indigo-950 text-blue-500;
+}
+
+.base-tag {
+    @apply bg-purple-900 text-white h-fit border rounded-lg p-1;
+    margin-left: 0.15rem;
+    margin-bottom: 0.1rem;
+    margin-top: 0.1rem;
+}
+
+.delete-button {
+    @apply bg-purple-950 text-purple-700 no-underline rounded-sm ml-1;
+}
+
+.delete-button:hover {
+    @apply text-purple-300 no-underline cursor-pointer;
+}

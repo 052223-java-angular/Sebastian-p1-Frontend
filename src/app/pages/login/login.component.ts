@@ -29,7 +29,6 @@ export class LoginComponent {
       username: this.formGroup.get('username')?.value,
       password: password
     }
-    console.log(payload);
     this.authService.login(payload, {
       next: (value: any) => {
         this.toastr.success("Successfully Logged In");

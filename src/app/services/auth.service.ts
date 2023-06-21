@@ -37,7 +37,30 @@ export class AuthService {
     }
   }
 
-  postWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
+  patchWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: any) => void}): void {
+    if(this.auth != null) {
+      const currentDate: Date = new Date();
+      if(this.expDate!.getTime() < currentDate.getTime()) {
+        observableVals.error("Login Expired");
+        return;
+      }
+      let token: string = this.auth.token!;
+      this.http.patch<void>(`${this.baseUrl}/${urlSuffix}`, payload, {headers: {"auth-token": token}})
+      .subscribe({
+        next: value => {
+          observableVals.next(value);
+        },
+        error: error => {
+          observableVals.error(error);
+        }
+      })
+    } else {
+      observableVals.error("Please log in");
+      return;
+    }
+  }
+
+  postWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: any) => void}): void {
     if(this.auth != null) {
       const currentDate: Date = new Date();
       if(this.expDate!.getTime() < currentDate.getTime()) {
@@ -51,7 +74,7 @@ export class AuthService {
           observableVals.next(value);
         },
         error: error => {
-          observableVals.error(error.error.message);
+          observableVals.error(error);
         }
       })
     } else {
