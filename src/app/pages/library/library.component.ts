@@ -23,8 +23,8 @@ export class LibraryComponent implements OnInit{
           this.pdLibrary.objects.sort((a, b) => 
             (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
         },
-        error: (error) => {
-          this.toastrService.error(error.error.message, "Couldn't get library info");
+        error: (message) => {
+          this.toastrService.error(message, "Couldn't get library info");
         },
         complete() {},
       });

@@ -19,6 +19,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { ObjectComponent } from './pages/object/object.component';
 import { EdittagComponent } from './components/edittag/edittag.component';
+import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { EdittagComponent } from './components/edittag/edittag.component';
     LibraryComponent,
     ObjectComponent,
     EdittagComponent,
+    EditObjectComponent,
   ],
   imports: [
     BrowserModule,
