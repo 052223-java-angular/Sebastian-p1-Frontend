@@ -19,7 +19,6 @@ export class EdittagComponent implements OnInit, OnDestroy {
       this.stringTags = Array<string>();
       inList.forEach(element => {
         this.stringTags?.push(element.tag.name);
-        console.log(element.tag.name);
       });
       this.stringTags.sort(this.sortFunc);
     }

@@ -28,8 +28,6 @@ export class EditObjectComponent implements OnInit {
   saveList(eventInput: string[]) {
     let outputObj: PdEditObject = this.formGroup.value;
     outputObj.objectTags = eventInput;
-    console.log(eventInput.toString());
-    console.log(outputObj);
     this.authService.patchWithAuth<PdEditObject>(`libraries/${this.libName}/${this.objName}`, outputObj, {
       next: () => {
         this.toastrService.success("Edited " + this.objName + " successfully");
@@ -49,6 +47,14 @@ export class EditObjectComponent implements OnInit {
       this.toastrService.error("No Object Provided");
       return;
     }
+    this.formGroup = this.fb.group({
+      name: [this.objName, Validators.required],
+      libraryVersion: [''],
+      library: [this.libName, Validators.required],
+      author: [''],
+      description: [''],
+      helpText: ['']
+    });
     this.libraryService.getObjectByAddress(this.objName, this.libName, {
       next: (value: PdObject) => {
         this.pdObject = value;
@@ -61,14 +67,6 @@ export class EditObjectComponent implements OnInit {
         this.toastrService.error(error.error.message, "Couldn't Load Object");
       },
       complete() {}
-    });
-    this.formGroup = this.fb.group({
-      name: [this.objName, Validators.required],
-      libraryVersion: [''],
-      library: [this.libName, Validators.required],
-      author: [''],
-      description: [''],
-      helpText: ['']
     });
   }
 }
