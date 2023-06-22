@@ -59,3 +59,7 @@ form {
 textarea {
     @apply m-1 border p-1 leading-none rounded-md border-slate-500;
 }
+
+input:disabled {
+    @apply border-0;
+}

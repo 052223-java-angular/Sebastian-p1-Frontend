@@ -72,7 +72,7 @@ export class EditObjectComponent implements OnInit {
     this.formGroup = this.fb.group({
       name: [this.objName, Validators.required],
       libraryVersion: [''],
-      library: [this.libName, Validators.required],
+      library: [{value: this.libName, disabled: this.isNew}, Validators.required],
       author: [''],
       description: [''],
       helpText: ['']
