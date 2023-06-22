@@ -12,9 +12,10 @@ import { ObjectComponent } from './pages/object/object.component';
 import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 
 const routes: Routes = [
-  { path: 'libraries/:libName/:objName/edit', component: EditObjectComponent},
-  { path: 'libraries/:libName/:objName', component: ObjectComponent},
-  { path: 'libraries/:name', component: LibraryComponent },
+  { path: 'libraries/:libName/edit/:objName', component: EditObjectComponent},
+  { path: 'libraries/:libName/view/:objName', component: ObjectComponent},
+  { path: 'libraries/:libName/new', component: EditObjectComponent},
+  { path: 'libraries/:name/view', component: LibraryComponent },
   { path: 'libraries', component: LibrariesComponent },
   { path: 'search', component: SearchComponent },
   { path: 'login', component: LoginComponent },

@@ -1,8 +1,9 @@
 <div class="flex justify-between w-10/12 mx-auto">
     <div class="grow flex content-center flex-wrap">
-        <button class="cancel-button" routerLink="../">Cancel</button>
+        <button class="cancel-button" [routerLink]="[isNew? '../view' : '../../view/' + this.pdObject?.name]">
+            Cancel</button>
     </div>
-    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: [{{pdObject?.name}}]</h1>
+    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: {{isNew ? "New" : ('[' + pdObject?.name + ']')}}</h1>
     <div class="grow flex justify-end content-center flex-wrap">
         <button class="edit-button" (click)="saveEvent()" [disabled]="!formGroup.valid">Save</button>
     </div>
@@ -13,7 +14,7 @@
 <form [formGroup]="formGroup" class="entityInfo grid">
     <div class="flex">
         <label class="grow-0" for="name"><b>Name:</b></label>
-        <input formControlName="name" class="grow" id="name" type="text">
+        <input formControlName="name" (keydown.space)="$event.preventDefault();" required class="grow" id="name" type="text">
     </div>
     <div class="flex">
         <label class="grow-0" for="author"><b>Author:</b></label>
@@ -21,7 +22,7 @@
     </div>
     <div class="flex">
         <label class="grow-0" for="library"><b>Library:</b></label>
-        <input formControlName="library" class="grow" id="library" type="text">
+        <input formControlName="library" class="grow" id="library" required type="text">
     </div>
     <div class="flex">
         <label class="grow-0" for="libraryVersion"><b>Library Version:</b></label>

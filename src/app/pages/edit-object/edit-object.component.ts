@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { PdEditObject } from 'src/app/models/pd-edit-object';
@@ -18,55 +19,79 @@ export class EditObjectComponent implements OnInit {
   @Input() libName?: string | null;
 
   pdObject: PdObject | null = null;
+  isNew: boolean = false;
 
   constructor(protected libraryService: LibraryService, private toastrService: ToastrService,
-    protected authService: AuthService, protected tagService: ObjectTagService, private fb: FormBuilder) {}
+    protected authService: AuthService, protected tagService: ObjectTagService, private fb: FormBuilder,
+    private router: Router, private route: ActivatedRoute) {}
 
   eventsSubject: Subject<void> = new Subject<void>();
   formGroup!: FormGroup;
 
   saveList(eventInput: string[]) {
     let outputObj: PdEditObject = this.formGroup.value;
+    outputObj.name = outputObj.name.trim();
+    outputObj.library = outputObj.library.trim();
     outputObj.objectTags = eventInput;
-    this.authService.patchWithAuth<PdEditObject>(`libraries/${this.libName}/${this.objName}`, outputObj, {
+    const objPutObserver = {
       next: () => {
-        this.toastrService.success("Edited " + this.objName + " successfully");
+        this.toastrService.success(this.isNew ? "Created" : "Edited " + this.objName + " successfully");
+        let newLib = outputObj.library;
+        let newObj = outputObj.name;
+        //just update the library cache (easiest to update current library usually)
+        this.libraryService.unsetRecent();
+        this.libraryService.getLibraryByName(newLib, {next: (val) => {
+          this.router.navigate([`/libraries/${newLib}/view/${newObj}`]);
+        }, error: (msg)=> {this.toastrService.error(msg)}, complete() {},});
       },
-      error: (error) => {
-        this.toastrService.error(error.error.message, "Couldn't Edit Object " + this.objName);
+      error: (message: string) => {
+        this.toastrService.error(message, "Couldn't " + this.isNew? "Create" : "Edit" +  " Object " +
+          this.objName);
       }
-    })
+    }
+    if(this.isNew)
+      this.authService.postWithAuth<PdEditObject>(`libraries/${this.libName}`,
+        outputObj, objPutObserver)
+    else
+      this.authService.patchWithAuth<PdEditObject>(`libraries/${this.libName}/${this.objName}`,
+        outputObj, objPutObserver)
   }
 
   saveEvent() {
+    //console.log("saveEvent");
     this.eventsSubject.next();
   }
   
   ngOnInit(): void {
-    if(typeof(this.objName) !== "string" || typeof(this.libName) !== "string") {
-      this.toastrService.error("No Object Provided");
+    if(typeof(this.libName) !== "string") {
+      this.toastrService.error("No Library Provided");
       return;
     }
+    if(typeof(this.objName) !== "string") {
+      this.objName = "";
+      this.isNew = true;
+    }
     this.formGroup = this.fb.group({
-      name: [this.objName, Validators.required],
+      name: [this.objName, [Validators.pattern(/^\s*\S+\s*$/)]],
       libraryVersion: [''],
-      library: [this.libName, Validators.required],
+      library: [{value: this.libName, disabled: this.isNew}, Validators.required],
       author: [''],
       description: [''],
       helpText: ['']
     });
-    this.libraryService.getObjectByAddress(this.objName, this.libName, {
-      next: (value: PdObject) => {
-        this.pdObject = value;
-        this.formGroup.controls['libraryVersion'].setValue(this.pdObject.libraryVersion);
-        this.formGroup.controls['author'].setValue(this.pdObject.author);
-        this.formGroup.controls['description'].setValue(this.pdObject.description);
-        this.formGroup.controls['helpText'].setValue(this.pdObject.helpText);
-      },
-      error: (error) => {
-        this.toastrService.error(error.error.message, "Couldn't Load Object");
-      },
-      complete() {}
-    });
+    if(!this.isNew)
+      this.libraryService.getObjectByAddress(this.objName, this.libName, {
+        next: (value: PdObject) => {
+          this.pdObject = value;
+          this.formGroup.controls['libraryVersion'].setValue(this.pdObject.libraryVersion);
+          this.formGroup.controls['author'].setValue(this.pdObject.author);
+          this.formGroup.controls['description'].setValue(this.pdObject.description);
+          this.formGroup.controls['helpText'].setValue(this.pdObject.helpText);
+        },
+        error: (error) => {
+          this.toastrService.error(error.error.message, "Couldn't Load Object");
+        },
+        complete() {}
+      });
   }
 }

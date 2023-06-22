@@ -17,6 +17,10 @@ export class LibraryService {
     this.http.get<LibrarySummary[]>(`${this.baseUrl}`).subscribe(libObserver);
   }
 
+  unsetRecent(): void {
+    this.recentLibrary = null;
+  }
+
   getRecent(): PdLibrary | null {
     return this.recentLibrary;
   }

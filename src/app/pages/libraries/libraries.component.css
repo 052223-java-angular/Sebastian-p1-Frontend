@@ -7,3 +7,7 @@
 .lib-grid > * {
     @apply border border-slate-300 px-1;
 }
+
+p, a {
+    @apply text-lg;
+}
