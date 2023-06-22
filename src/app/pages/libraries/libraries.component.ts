@@ -13,6 +13,11 @@ export class LibrariesComponent {
   constructor(private libraryService: LibraryService, private toastrService: ToastrService) {
     libraryService.getLibraries({
       next: (value: LibrarySummary[]) => {
+        value.forEach((summary) => {
+          summary.tags.sort((a, b) => 
+          (a.toLowerCase() > b.toLowerCase() ? 1 : -1));
+
+        });
         this.libraries = value.sort((a, b) => 
           (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
       },
