@@ -45,7 +45,7 @@ export class ObjectComponent implements OnInit {
 
   sortTags() {
     this.pdObject?.objectTags.sort((a, b) => {
-      return a.tag.name > a.tag.name ? 1 : -1;
+      return a.tag.name > b.tag.name ? 1 : -1;
     });
   }
 
