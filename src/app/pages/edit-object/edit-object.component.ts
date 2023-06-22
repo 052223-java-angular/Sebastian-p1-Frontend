@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -14,7 +14,7 @@ import { ObjectTagService } from 'src/app/services/object-tag.service';
   templateUrl: './edit-object.component.html',
   styleUrls: ['./edit-object.component.css']
 })
-export class EditObjectComponent implements OnInit {
+export class EditObjectComponent implements OnInit, AfterViewChecked {
   @Input() objName?: string | null;
   @Input() libName?: string | null;
 
@@ -23,7 +23,7 @@ export class EditObjectComponent implements OnInit {
 
   constructor(protected libraryService: LibraryService, private toastrService: ToastrService,
     protected authService: AuthService, protected tagService: ObjectTagService, private fb: FormBuilder,
-    private router: Router, private route: ActivatedRoute) {}
+    private router: Router, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
 
   eventsSubject: Subject<void> = new Subject<void>();
   formGroup!: FormGroup;
@@ -93,5 +93,9 @@ export class EditObjectComponent implements OnInit {
         },
         complete() {}
       });
+  }
+
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
   }
 }
