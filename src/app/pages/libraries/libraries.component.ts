@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LibraryService } from 'src/app/services/library.service';
 import { ToastrService } from 'ngx-toastr';
 import { LibrarySummary } from 'src/app/models/library-summary';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-libraries',
@@ -10,7 +11,8 @@ import { LibrarySummary } from 'src/app/models/library-summary';
 })
 export class LibrariesComponent {
   libraries: LibrarySummary[] = [];
-  constructor(private libraryService: LibraryService, private toastrService: ToastrService) {
+  constructor(private libraryService: LibraryService, protected authService: AuthService,
+    private toastrService: ToastrService) {
     libraryService.getLibraries({
       next: (value: LibrarySummary[]) => {
         value.forEach((summary) => {

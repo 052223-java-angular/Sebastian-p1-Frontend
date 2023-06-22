@@ -27,10 +27,32 @@
 </div>
 <h2 class="text-2xl text-center">Help/Detail Text</h2>
 <p class="entityInfo text-lg">{{pdObject?.helpText}}</p>
-<h2 class="text-2xl text-center">Comments</h2>
-<div class="w-10/12 border-8 rounded-md p-1 mx-auto border-pdextended-signal-iolet">
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow flex content-center flex-wrap">
+    </div>
+    <h2 class="text-2xl text-center">Comments</h2>
+    <div class="grow flex justify-end content-center flex-wrap gap-4">
+        <ng-container *ngIf="authService.loggedIn">
+            <button *ngIf="!this.editingComment; else editButtons" class="mb-1 edit-button"
+                (click)="this.editComment()">New Comment</button>
+            <ng-template #editButtons>
+                <button class="cancel-button" (click)="cancelEdit()">Cancel</button>
+                <button class="edit-button" [disabled]="commentControl.invalid" (click)="submitComment()">
+                    Post
+                </button>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>
+<div class="flex w-10/12 mx-auto" *ngIf="editingComment">
+    <textarea [formControl]="commentControl" class="mt-1 mb-3 px-1 border-8 rounded-md mx-auto w-full"></textarea>
+</div>
+<div class="w-10/12 border-8 rounded-md p-1 mx-auto my-4 border-pdextended-signal-iolet">
     <ng-container *ngFor="let comment of pdObject?.comments">
-        <h3 class="m-0"><b>User:</b> {{comment.user.username}}</h3>
+        <div class="flex justify-between">
+            <h3 class="m-0"><b>User:</b> {{comment.user.username}}</h3>
+            <h3 class="m-0"><b>Time Posted:</b> {{comment.timePosted}}</h3>
+        </div>
         <p class="m-0 px-1 border-pdextended-signal-iolet border">{{comment.comment}}</p>
     </ng-container>
 </div>

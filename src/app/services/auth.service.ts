@@ -100,6 +100,7 @@ export class AuthService {
           observableVals.next(value);
         },
         error: error => {
+          console.log("got error");
           observableVals.error(error.error.message);
         }
       })

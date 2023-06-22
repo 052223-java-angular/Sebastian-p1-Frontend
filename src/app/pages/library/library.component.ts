@@ -15,6 +15,7 @@ export class LibraryComponent implements OnInit{
   pdLibrary: PdLibrary | null = null;
   constructor(private libraryService: LibraryService, private toastrService: ToastrService,
     protected authService: AuthService) {}
+
   ngOnInit(): void {
     if(typeof(this.name) !== "string") {
       this.toastrService.error("No Library Provided");

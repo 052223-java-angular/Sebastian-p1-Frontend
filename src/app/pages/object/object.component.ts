@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PdObject } from 'src/app/models/pd-object';
@@ -15,6 +16,8 @@ export class ObjectComponent implements OnInit {
   @Input() libName?: string | null;
 
   pdObject: PdObject | null = null;
+  editingComment: boolean = false;
+  commentControl: FormControl = new FormControl('', Validators.required);
 
   constructor(private libraryService: LibraryService, private toastrService: ToastrService,
     protected authService: AuthService, private router: Router, private route: ActivatedRoute) {}
@@ -34,6 +37,52 @@ export class ObjectComponent implements OnInit {
     });
   }
 
+  sortComments() {
+    this.pdObject?.comments.sort((a, b) => {
+      return a.timePosted < b.timePosted ? 1 : -1;
+    });
+  }
+
+  sortTags() {
+    this.pdObject?.objectTags.sort((a, b) => {
+      return a.tag.name > a.tag.name ? 1 : -1;
+    });
+  }
+
+  editComment() {
+    this.editingComment = true;
+  }
+
+  cancelEdit() {
+    this.commentControl.setValue("");
+    this.editingComment = false;
+  }
+
+  submitComment() {
+    console.log("submit value: " + this.commentControl.value);
+    this.authService.postWithAuth(`libraries/${this.libName}/${this.objName}/comment`, this.commentControl.value, {
+      next: (id: string) => {
+        this.libraryService.unsetRecent();
+        this.libraryService.getObjectByAddress(this.objName!, this.libName!, {
+          next: (newObj: PdObject) => {
+            this.pdObject = newObj;
+            this.sortComments();
+            this.sortTags();
+            this.editingComment = false;
+            this.commentControl.setValue("");
+          },
+          error: (err) => {
+            this.toastrService.error(err.error.message, "failed to re-fetch object for comment")
+          },
+          complete() {},
+        });
+      },
+      error: (msg) => {
+        this.toastrService.error(msg, "Failed to Post");
+      } 
+    });
+  }
+
   ngOnInit(): void {
     if(typeof(this.objName) !== "string" || typeof(this.libName) !== "string") {
       this.toastrService.error("No Object Provided");
@@ -41,11 +90,9 @@ export class ObjectComponent implements OnInit {
     }
     this.libraryService.getObjectByAddress(this.objName, this.libName, {
       next: (value: PdObject) => {
-        value.objectTags.sort((a, b) => {
-            return (a.tag.name.toLowerCase() > b.tag.name.toLowerCase() ? 1 : -1);
-        });
-
         this.pdObject = value;
+        this.sortComments();
+        this.sortTags();
       },
       error: (error) => {
         this.toastrService.error(error.error.message, "Couldn't Load Object");

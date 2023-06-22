@@ -3,7 +3,7 @@
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Libraries</h1>
     <div class="grow flex justify-end content-center flex-wrap">
-        <button class="edit-button" routerLink="new">
+        <button *ngIf="authService.loggedIn" class="edit-button" routerLink="new">
         New</button>
     </div>
 </div>
