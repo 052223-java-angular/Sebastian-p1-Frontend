@@ -3,7 +3,9 @@
         <button class="edit-button" routerLink="../">{{libName}}</button>
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: [{{pdObject?.name}}]</h1>
-    <div class="grow flex justify-end content-center flex-wrap">
+    <div class="grow flex justify-end content-center flex-wrap gap-4">
+        <button *ngIf="authService.loggedIn" class="cancel-button" (click)="deleteMe()">
+        Delete</button>
         <button *ngIf="authService.loggedIn" class="edit-button" [routerLink]="'../../edit/' + [pdObject?.name]">
         Edit</button>
     </div>

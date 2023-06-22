@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { PdObject } from 'src/app/models/pd-object';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,7 +17,22 @@ export class ObjectComponent implements OnInit {
   pdObject: PdObject | null = null;
 
   constructor(private libraryService: LibraryService, private toastrService: ToastrService,
-    protected authService: AuthService) {}
+    protected authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+
+  deleteMe() {
+    this.authService.deleteWithAuth(`libraries/${this.libName}/${this.objName}`, {
+      next: () => {
+        this.toastrService.success("deleted object " + this.objName + " from library " + this.libName);
+        this.libraryService.unsetRecent();
+        this.libraryService.getLibraryByName(this.libName!, {next: (val) => {
+          this.router.navigate(['../'], {relativeTo: this.route});
+        }, error: (msg)=> {this.toastrService.error(msg)}, complete() {},});
+      },
+      error: (msg) => {
+        this.toastrService.error(msg, "couldn't delete " + this.objName);
+      }
+    });
+  }
 
   ngOnInit(): void {
     if(typeof(this.objName) !== "string" || typeof(this.libName) !== "string") {
@@ -37,6 +53,5 @@ export class ObjectComponent implements OnInit {
       complete() {}
     });
   }
-
 
 }
