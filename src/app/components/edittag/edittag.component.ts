@@ -12,7 +12,7 @@ import { TagService } from 'src/app/services/tag.service';
   styleUrls: ['./edittag.component.css']
 })
 
-export class EdittagComponent implements OnInit, OnDestroy {
+export class EdittagComponent implements OnInit {
   // object/library-specific tags
   @Input() set taglist(inList: ObjectTag[] | LibraryTag[] | undefined){
     if(inList) {
@@ -41,7 +41,7 @@ export class EdittagComponent implements OnInit, OnDestroy {
   saveSubscription: Subscription | undefined = undefined;
 
   saveTags(): void {
-    console.log("save tags");
+    //console.log("save tags");
     this.save.emit(this.stringTags);
   }
 
@@ -73,7 +73,7 @@ export class EdittagComponent implements OnInit, OnDestroy {
   newTag(): void {
     let newTag: string = this.tagInputControl.value;
     newTag = newTag.trim().toLowerCase().replaceAll(' ', '-');
-    console.log(newTag);
+    //console.log(newTag);
     this.tagService?.createTag(newTag, {
       next: () => {
         this.insertTag(newTag);
@@ -104,7 +104,7 @@ export class EdittagComponent implements OnInit, OnDestroy {
         this.globalTags = tags.sort(this.sortFunc);
       },
       error: (error) => {
-        console.log(error)
+        //console.log(error)
         this.toastrService.error(error.error.message, "Couldn't get Tags");
       },
       complete: () =>{}
@@ -112,7 +112,4 @@ export class EdittagComponent implements OnInit, OnDestroy {
     this.saveSubscription = this.saveSubject?.subscribe(() => this.saveTags());
   }
 
-  ngOnDestroy(): void {
-      
-  }
 }

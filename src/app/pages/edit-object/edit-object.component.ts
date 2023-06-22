@@ -33,7 +33,7 @@ export class EditObjectComponent implements OnInit {
     outputObj.objectTags = eventInput;
     const objPutObserver = {
       next: () => {
-        this.toastrService.success("Edited " + this.objName + " successfully");
+        this.toastrService.success(this.isNew ? "Created" : "Edited " + this.objName + " successfully");
         let newLib = outputObj.library;
         let newObj = outputObj.name;
         //just update the library cache (easiest to update current library usually)
@@ -56,7 +56,7 @@ export class EditObjectComponent implements OnInit {
   }
 
   saveEvent() {
-    console.log("saveEvent");
+    //console.log("saveEvent");
     this.eventsSubject.next();
   }
   
