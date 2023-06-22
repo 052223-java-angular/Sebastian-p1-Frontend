@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { PdEditObject } from 'src/app/models/pd-edit-object';
@@ -20,7 +21,8 @@ export class EditObjectComponent implements OnInit {
   pdObject: PdObject | null = null;
 
   constructor(protected libraryService: LibraryService, private toastrService: ToastrService,
-    protected authService: AuthService, protected tagService: ObjectTagService, private fb: FormBuilder) {}
+    protected authService: AuthService, protected tagService: ObjectTagService, private fb: FormBuilder,
+    private router: Router, private route: ActivatedRoute) {}
 
   eventsSubject: Subject<void> = new Subject<void>();
   formGroup!: FormGroup;
@@ -31,14 +33,23 @@ export class EditObjectComponent implements OnInit {
     this.authService.patchWithAuth<PdEditObject>(`libraries/${this.libName}/${this.objName}`, outputObj, {
       next: () => {
         this.toastrService.success("Edited " + this.objName + " successfully");
+        let newLib = outputObj.library;
+        let newObj = outputObj.name;
+        //just update the library cache (easiest to update current library usually)
+        this.libraryService.unsetRecent();
+        this.libraryService.getLibraryByName(newLib, {next: (val) => {
+          this.router.navigate([`/libraries/${newLib}/${newObj}`]);
+        }, error: (msg)=> {this.toastrService.error(msg)}, complete() {},});
       },
-      error: (error) => {
-        this.toastrService.error(error.error.message, "Couldn't Edit Object " + this.objName);
+      error: (message) => {
+        console.log(message);
+        this.toastrService.error(message, "Couldn't Edit Object " + this.objName);
       }
     })
   }
 
   saveEvent() {
+    console.log("saveEvent");
     this.eventsSubject.next();
   }
   

@@ -12,6 +12,8 @@
     <div class="grow basis-0">
         <h2 *ngIf="pdObject?.author && pdObject?.author !== ''"><b>Author:</b> {{pdObject?.author}}</h2>
         <h2><b>Description:</b> {{pdObject?.description}}</h2>
+        <h2 *ngIf="pdObject?.libraryVersion && pdObject?.libraryVersion !== ''">
+            <b>First Library Version:</b> {{pdObject?.libraryVersion}}</h2>
     </div>
     <div class="tag-box">
         <h2 class="basis-0 grow-0 text-xl w-full text-left">Tags: </h2>

@@ -41,6 +41,7 @@ export class EdittagComponent implements OnInit, OnDestroy {
   saveSubscription: Subscription | undefined = undefined;
 
   saveTags(): void {
+    console.log("save tags");
     this.save.emit(this.stringTags);
   }
 

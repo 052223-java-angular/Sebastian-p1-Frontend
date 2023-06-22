@@ -4,6 +4,6 @@ export interface PdEditObject {
     library: string;
     author: string;
     description: string;
-    helptext: string;
+    helpText: string;
     objectTags: string[];
 }
