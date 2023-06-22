@@ -37,6 +37,30 @@ export class AuthService {
     }
   }
 
+  deleteWithAuth<T>(urlSuffix: string, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
+    if(this.auth != null) {
+      const currentDate: Date = new Date();
+      if(this.expDate!.getTime() < currentDate.getTime()) {
+        this.unsetAuth();
+        observableVals.error("Login Expired");
+        return;
+      }
+      let token: string = this.auth.token!;
+      this.http.delete<void>(`${this.baseUrl}/${urlSuffix}`, {headers: {"auth-token": token}})
+      .subscribe({
+        next: value => {
+          observableVals.next(value);
+        },
+        error: error => {
+          observableVals.error(error.error.message);
+        }
+      })
+    } else {
+      observableVals.error("Please log in");
+      return;
+    }
+  }
+
   patchWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
     if(this.auth != null) {
       const currentDate: Date = new Date();

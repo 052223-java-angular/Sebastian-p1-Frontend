@@ -20,8 +20,8 @@
     margin-right: 0.1rem;
 }
 
-.edit-button:hover {
-    @apply underline underline-offset-2;
+.edit-button:disabled {
+    @apply bg-indigo-950 text-blue-500;
 }
 
 .cancel-button {
@@ -32,6 +32,34 @@
     margin-right: 0.1rem;
 }
 
+.edit-button:hover:not([disabled]) {
+    @apply underline underline-offset-2;
+}
+
 .cancel-button:hover {
     @apply underline underline-offset-2;
+}
+
+label {
+    @apply text-lg my-auto;
+}
+
+input {
+    @apply m-1 border p-1 leading-none rounded-md border-slate-500;
+}
+
+input:focus {
+    @apply outline-blue-700;
+}
+
+form {
+    grid-template-columns: 1fr 1fr;
+}
+
+textarea {
+    @apply m-1 border p-1 leading-none rounded-md border-slate-500;
+}
+
+input:disabled {
+    @apply border-0;
 }

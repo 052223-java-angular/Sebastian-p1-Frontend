@@ -10,12 +10,15 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { LibraryComponent } from './pages/library/library.component';
 import { ObjectComponent } from './pages/object/object.component';
 import { EditObjectComponent } from './pages/edit-object/edit-object.component';
+import { EditLibraryComponent } from './pages/edit-library/edit-library.component';
 
 const routes: Routes = [
   { path: 'libraries/:libName/edit/:objName', component: EditObjectComponent},
   { path: 'libraries/:libName/view/:objName', component: ObjectComponent},
   { path: 'libraries/:libName/new', component: EditObjectComponent},
   { path: 'libraries/:name/view', component: LibraryComponent },
+  { path: 'libraries/:name/edit', component: EditLibraryComponent},
+  { path: 'libraries/new', component: EditLibraryComponent},
   { path: 'libraries', component: LibrariesComponent },
   { path: 'search', component: SearchComponent },
   { path: 'login', component: LoginComponent },

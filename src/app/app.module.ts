@@ -20,6 +20,7 @@ import { LibraryComponent } from './pages/library/library.component';
 import { ObjectComponent } from './pages/object/object.component';
 import { EdittagComponent } from './components/edittag/edittag.component';
 import { EditObjectComponent } from './pages/edit-object/edit-object.component';
+import { EditLibraryComponent } from './pages/edit-library/edit-library.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { EditObjectComponent } from './pages/edit-object/edit-object.component';
     ObjectComponent,
     EdittagComponent,
     EditObjectComponent,
+    EditLibraryComponent,
   ],
   imports: [
     BrowserModule,
