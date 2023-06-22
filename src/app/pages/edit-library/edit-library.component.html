@@ -1,0 +1,32 @@
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow flex content-center flex-wrap">
+        <button class="cancel-button" [routerLink]="[isNew? '../../' : '../view/' + this.pdLibrary?.name]">
+            Cancel</button>
+    </div>
+    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: {{isNew ? "New" : ('[' + pdLibrary?.name + ']')}}</h1>
+    <div class="grow flex justify-end content-center flex-wrap">
+        <button class="edit-button" (click)="saveEvent()" [disabled]="!formGroup.valid">Save</button>
+    </div>
+</div>
+<div class="flex grow flex-col entityInfo">
+    <app-edittag (save)="saveList($event)" [saveSubject]="eventsSubject.asObservable()"
+        [taglist]="pdLibrary?.libraryTags" [tagService]="tagService"></app-edittag>
+</div>
+<form [formGroup]="formGroup" class="entityInfo grid">
+    <div class="flex">
+        <label class="grow-0" for="name"><b>Name:</b></label>
+        <input formControlName="name" (keydown.space)="$event.preventDefault();" required class="grow" id="name" type="text">
+    </div>
+    <div class="flex">
+        <label class="grow-0" for="author"><b>Author:</b></label>
+        <input formControlName="author" class="grow" id="author" type="text">
+    </div>
+    <div class="flex">
+        <label class="grow-0" for="recentVersion"><b>Library Version:</b></label>
+        <input formControlName="recentVersion" class="grow" id="libVersion" type="text">
+    </div>
+    <div class="flex col-span-2">
+        <label class="grow-0" for="description"><b>Description:</b></label>
+        <input formControlName="description" class="grow" id="description" type="text">
+    </div>
+</form>

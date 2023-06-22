@@ -1,6 +1,21 @@
-<div class="flex justify-around w-10/12 mx-auto">
-    <h1 class="text-center grow basis-0 mb-4 mt-3 text-3xl">Library: {{pdLibrary?.name}}</h1>
-    <div class="tag-box content-center">
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow flex content-center flex-wrap">
+        <button class="edit-button" routerLink="../../">Libraries</button>
+    </div>
+    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
+    <div class="grow flex justify-end content-center flex-wrap">
+        <button *ngIf="authService.loggedIn" class="edit-button" routerLink="../edit/">
+        Edit</button>
+    </div>
+</div>
+<div class="entityInfo flex justify-around">
+    <div class="grow basis-0">
+        <h2 *ngIf="pdLibrary?.author && pdLibrary?.author !== ''"><b>Author:</b> {{pdLibrary?.author}}</h2>
+        <h2><b>Description:</b> {{pdLibrary?.description}}</h2>
+        <h2 *ngIf="pdLibrary?.recentVersion && pdLibrary?.recentVersion !== ''">
+            <b>First Library Version:</b> {{pdLibrary?.recentVersion}}</h2>
+    </div>
+    <div class="tag-box">
         <h2 class="basis-0 grow-0 text-xl w-full text-left">Tags: </h2>
         <div class="grow flex flex-wrap">
             <span class="base-button box-border" *ngFor="let tag of pdLibrary?.libraryTags; let last = last">
@@ -23,4 +38,4 @@
         </p>
     </ng-container>
 </div>
-<div class="mx-auto text-center w-full"><button class="edit-button" routerLink="../new">New Object</button></div>
+<div class="mx-auto my-2 text-center w-full"><button class="edit-button" routerLink="../new">New Object</button></div>
