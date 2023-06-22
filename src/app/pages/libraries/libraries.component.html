@@ -4,7 +4,7 @@
 </div>
 <div class="mx-auto lib-grid rounded-b border-b-2">
     <ng-container *ngFor="let library of libraries">
-        <div><a class="justify-start" [routerLink]="[library.name]">{{library.name}}</a></div>
+        <div><a class="justify-start" [routerLink]="[library.name] +'/view'">{{library.name}}</a></div>
         <p>{{library.author}}</p>
         <p>{{library.description}}</p>
         <p>

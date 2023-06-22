@@ -12,3 +12,13 @@
 .tag-box {
     @apply flex grow basis-0 content-center flex-wrap;
 }
+
+.edit-button {
+    @apply bg-blue-500 text-white my-3 h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+}
+
+.edit-button:hover {
+    @apply underline underline-offset-2;
+}

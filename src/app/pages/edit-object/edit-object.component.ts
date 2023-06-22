@@ -19,6 +19,7 @@ export class EditObjectComponent implements OnInit {
   @Input() libName?: string | null;
 
   pdObject: PdObject | null = null;
+  isNew: boolean = false;
 
   constructor(protected libraryService: LibraryService, private toastrService: ToastrService,
     protected authService: AuthService, protected tagService: ObjectTagService, private fb: FormBuilder,
@@ -30,7 +31,7 @@ export class EditObjectComponent implements OnInit {
   saveList(eventInput: string[]) {
     let outputObj: PdEditObject = this.formGroup.value;
     outputObj.objectTags = eventInput;
-    this.authService.patchWithAuth<PdEditObject>(`libraries/${this.libName}/${this.objName}`, outputObj, {
+    const objPutObserver = {
       next: () => {
         this.toastrService.success("Edited " + this.objName + " successfully");
         let newLib = outputObj.library;
@@ -38,14 +39,20 @@ export class EditObjectComponent implements OnInit {
         //just update the library cache (easiest to update current library usually)
         this.libraryService.unsetRecent();
         this.libraryService.getLibraryByName(newLib, {next: (val) => {
-          this.router.navigate([`/libraries/${newLib}/${newObj}`]);
+          this.router.navigate([`/libraries/${newLib}/view/${newObj}`]);
         }, error: (msg)=> {this.toastrService.error(msg)}, complete() {},});
       },
-      error: (message) => {
-        console.log(message);
-        this.toastrService.error(message, "Couldn't Edit Object " + this.objName);
+      error: (message: string) => {
+        this.toastrService.error(message, "Couldn't " + this.isNew? "Create" : "Edit" +  " Object " +
+          this.objName);
       }
-    })
+    }
+    if(this.isNew)
+      this.authService.postWithAuth<PdEditObject>(`libraries/${this.libName}`,
+        outputObj, objPutObserver)
+    else
+      this.authService.patchWithAuth<PdEditObject>(`libraries/${this.libName}/${this.objName}`,
+        outputObj, objPutObserver)
   }
 
   saveEvent() {
@@ -54,9 +61,13 @@ export class EditObjectComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    if(typeof(this.objName) !== "string" || typeof(this.libName) !== "string") {
-      this.toastrService.error("No Object Provided");
+    if(typeof(this.libName) !== "string") {
+      this.toastrService.error("No Library Provided");
       return;
+    }
+    if(typeof(this.objName) !== "string") {
+      this.objName = "";
+      this.isNew = true;
     }
     this.formGroup = this.fb.group({
       name: [this.objName, Validators.required],
@@ -66,18 +77,19 @@ export class EditObjectComponent implements OnInit {
       description: [''],
       helpText: ['']
     });
-    this.libraryService.getObjectByAddress(this.objName, this.libName, {
-      next: (value: PdObject) => {
-        this.pdObject = value;
-        this.formGroup.controls['libraryVersion'].setValue(this.pdObject.libraryVersion);
-        this.formGroup.controls['author'].setValue(this.pdObject.author);
-        this.formGroup.controls['description'].setValue(this.pdObject.description);
-        this.formGroup.controls['helpText'].setValue(this.pdObject.helpText);
-      },
-      error: (error) => {
-        this.toastrService.error(error.error.message, "Couldn't Load Object");
-      },
-      complete() {}
-    });
+    if(!this.isNew)
+      this.libraryService.getObjectByAddress(this.objName, this.libName, {
+        next: (value: PdObject) => {
+          this.pdObject = value;
+          this.formGroup.controls['libraryVersion'].setValue(this.pdObject.libraryVersion);
+          this.formGroup.controls['author'].setValue(this.pdObject.author);
+          this.formGroup.controls['description'].setValue(this.pdObject.description);
+          this.formGroup.controls['helpText'].setValue(this.pdObject.helpText);
+        },
+        error: (error) => {
+          this.toastrService.error(error.error.message, "Couldn't Load Object");
+        },
+        complete() {}
+      });
   }
 }

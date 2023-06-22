@@ -25,6 +25,10 @@ export class ObjectComponent implements OnInit {
     }
     this.libraryService.getObjectByAddress(this.objName, this.libName, {
       next: (value: PdObject) => {
+        value.objectTags.sort((a, b) => {
+            return (a.tag.name.toLowerCase() > b.tag.name.toLowerCase() ? 1 : -1);
+        });
+
         this.pdObject = value;
       },
       error: (error) => {

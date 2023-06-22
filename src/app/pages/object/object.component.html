@@ -4,7 +4,7 @@
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: [{{pdObject?.name}}]</h1>
     <div class="grow flex justify-end content-center flex-wrap">
-        <button *ngIf="authService.loggedIn" class="edit-button" routerLink="edit">
+        <button *ngIf="authService.loggedIn" class="edit-button" [routerLink]="'../../edit/' + [pdObject?.name]">
         Edit</button>
     </div>
 </div>
@@ -24,7 +24,7 @@
     </div>
 </div>
 <h2 class="text-2xl text-center">Help/Detail Text</h2>
-<p class="entityInfo">{{pdObject?.helpText}}</p>
+<p class="entityInfo text-lg">{{pdObject?.helpText}}</p>
 <h2 class="text-2xl text-center">Comments</h2>
 <div class="w-10/12 border-8 rounded-md p-1 mx-auto border-pdextended-signal-iolet">
     <ng-container *ngFor="let comment of pdObject?.comments">

@@ -36,7 +36,7 @@ export class EdittagComponent implements OnInit, OnDestroy {
   @ViewChild("selectbox") selectBox!: ElementRef;
 
   globalTags: string[] | null = null;
-  stringTags: string[] | undefined = undefined;
+  stringTags: string[] | undefined = [];
 
   saveSubscription: Subscription | undefined = undefined;
 
