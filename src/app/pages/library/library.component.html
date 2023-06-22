@@ -3,7 +3,8 @@
         <button class="edit-button" routerLink="../../">Libraries</button>
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
-    <div class="grow flex justify-end content-center flex-wrap">
+    <div class="grow flex justify-end content-center flex-wrap gap-4">
+        <button class="edit-button" routerLink="../new">New Object</button>
         <button *ngIf="authService.loggedIn" class="edit-button" routerLink="../edit/">
         Edit</button>
     </div>
@@ -38,4 +39,3 @@
         </p>
     </ng-container>
 </div>
-<div class="mx-auto my-2 text-center w-full"><button class="edit-button" routerLink="../new">New Object</button></div>
