@@ -30,6 +30,8 @@ export class EditObjectComponent implements OnInit {
 
   saveList(eventInput: string[]) {
     let outputObj: PdEditObject = this.formGroup.value;
+    outputObj.name = outputObj.name.trim();
+    outputObj.library = outputObj.library.trim();
     outputObj.objectTags = eventInput;
     const objPutObserver = {
       next: () => {
@@ -70,7 +72,7 @@ export class EditObjectComponent implements OnInit {
       this.isNew = true;
     }
     this.formGroup = this.fb.group({
-      name: [this.objName, Validators.required],
+      name: [this.objName, [Validators.pattern(/^\s*\S+\s*$/)]],
       libraryVersion: [''],
       library: [{value: this.libName, disabled: this.isNew}, Validators.required],
       author: [''],

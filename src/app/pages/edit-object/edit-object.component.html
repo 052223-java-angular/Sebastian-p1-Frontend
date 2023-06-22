@@ -14,7 +14,7 @@
 <form [formGroup]="formGroup" class="entityInfo grid">
     <div class="flex">
         <label class="grow-0" for="name"><b>Name:</b></label>
-        <input formControlName="name" class="grow" id="name" type="text">
+        <input formControlName="name" (keydown.space)="$event.preventDefault();" required class="grow" id="name" type="text">
     </div>
     <div class="flex">
         <label class="grow-0" for="author"><b>Author:</b></label>
@@ -22,7 +22,7 @@
     </div>
     <div class="flex">
         <label class="grow-0" for="library"><b>Library:</b></label>
-        <input formControlName="library" class="grow" id="library" type="text">
+        <input formControlName="library" class="grow" id="library" required type="text">
     </div>
     <div class="flex">
         <label class="grow-0" for="libraryVersion"><b>Library Version:</b></label>

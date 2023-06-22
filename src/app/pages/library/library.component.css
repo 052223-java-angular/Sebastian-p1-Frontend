@@ -22,3 +22,7 @@
 .edit-button:hover {
     @apply underline underline-offset-2;
 }
+
+p, a {
+    @apply text-lg;
+}
