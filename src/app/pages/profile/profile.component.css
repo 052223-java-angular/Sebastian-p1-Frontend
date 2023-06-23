@@ -1,1 +1,45 @@
 @import '../page.css';
+
+.entityInfo {
+    @apply mt-1 mb-3 w-10/12 border-8 rounded-md mx-auto;
+}
+
+.entityInfo h2 {
+    @apply text-lg;
+}
+
+.tag-box {
+    @apply flex grow basis-0 content-center flex-wrap my-1;
+}
+
+.edit-button {
+    @apply bg-blue-500 text-white inline-block h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.edit-button:hover {
+    @apply underline underline-offset-2;
+}
+
+.like-parent {
+    @apply flex flex-col basis-0 grow w-10/12 border-slate-800 border-2 rounded;
+}
+
+p, a {
+    @apply text-lg;
+}
+
+.cancel-button {
+    @apply bg-red-500 text-white inline-block h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.cancel-button:hover {
+    @apply underline underline-offset-2;
+}

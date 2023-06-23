@@ -35,3 +35,7 @@
 .cancel-button:hover {
     @apply underline underline-offset-2;
 }
+
+.like-link:hover {
+    cursor: pointer;
+}

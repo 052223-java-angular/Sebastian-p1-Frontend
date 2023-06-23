@@ -108,14 +108,6 @@ export class ObjectComponent implements OnInit {
         }
       })
     }
-    this.likeService.hasUserLikedObject(this.libName!, this.objName!, {
-      next: (value: boolean) => {
-        this.hasUserLiked = value;
-      },
-      error: (msg: string) => {
-        this.toastrService.error(msg, "couldn't get 'likes'")
-      }
-    });
   }
 
   ngOnInit(): void {
@@ -133,6 +125,14 @@ export class ObjectComponent implements OnInit {
         this.toastrService.error(error.error.message, "Couldn't Load Object");
       },
       complete() {}
+    });
+    this.likeService.hasUserLikedObject(this.libName!, this.objName!, {
+      next: (value: boolean) => {
+        this.hasUserLiked = value;
+      },
+      error: (msg: string) => {
+        this.toastrService.error(msg, "couldn't get 'likes'")
+      }
     });
   }
 

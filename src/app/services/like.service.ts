@@ -7,6 +7,12 @@ import { AuthService } from './auth.service';
 export class LikeService {
 
   constructor(private authService: AuthService) {}
+
+  getAllLikes(obs: {next: (value: {type: string, value:string}[]) => void, error: (msg: string) => void}):
+    void {
+    this.authService.getWithAuth("like", obs);
+  }
+
   hasUserLikedLibrary(libName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
     this.authService.getWithAuth(`like/library/${libName}`, obs);
   }
@@ -16,7 +22,7 @@ export class LikeService {
   }
 
   deleteLibraryLike(libName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
-    this.authService.deleteWithAuth(`like/library/object/${libName}`, obs);
+    this.authService.deleteWithAuth(`like/library/${libName}`, obs);
   }
 
   hasUserLikedObject(libName: string, objName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
