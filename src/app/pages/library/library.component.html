@@ -1,5 +1,5 @@
 <div class="flex justify-between w-10/12 mx-auto">
-    <div class="grow flex content-center flex-wrap gap-4">
+    <div class="grow flex content-center basis-0 flex-wrap gap-4">
         <button class="edit-button" routerLink="../../">Libraries</button>
         <button *ngIf="authService.loggedIn && !updating" class="edit-button" (click)="updateFromDeken()">
             Update from Deken</button>
@@ -7,8 +7,14 @@
             Cancel</button>
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
-    <div class="grow flex justify-end content-center flex-wrap gap-4">
+    <div class="grow flex justify-end content-center basis-0 flex-wrap gap-4">
         <ng-container *ngIf="authService.loggedIn">
+            <div *ngIf="hasUserLiked; else unStarred">Starred
+                <img (click)="toggleLike()" src="assets/star-fill.svg"></div>
+            <ng-template #unStarred>
+                <div>Star
+                <img (click)="toggleLike()" src="assets/star.svg"></div>
+            </ng-template>
             <button class="edit-button" routerLink="../new">New Object</button>
             <button class="edit-button" routerLink="../edit/">
             Edit</button>
