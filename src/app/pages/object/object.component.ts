@@ -59,7 +59,6 @@ export class ObjectComponent implements OnInit {
   }
 
   submitComment() {
-    console.log("submit value: " + this.commentControl.value);
     this.authService.postWithAuth(`libraries/${this.libName}/${this.objName}/comment`, this.commentControl.value, {
       next: (id: string) => {
         this.libraryService.unsetRecent();
