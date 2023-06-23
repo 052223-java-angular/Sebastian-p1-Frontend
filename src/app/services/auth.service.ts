@@ -4,6 +4,7 @@ import { RegisterPayload } from '../models/register-payload';
 import { Auth } from '../models/auth';
 import { LoginPayload } from '../models/login-payload';
 import jwtDecode, { JwtPayload } from "jwt-decode";
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -85,28 +86,28 @@ export class AuthService {
     }
   }
 
-  postWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
+  postWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}):
+  Subscription {
     if(this.auth != null) {
       const currentDate: Date = new Date();
       if(this.expDate!.getTime() < currentDate.getTime()) {
         this.unsetAuth();
         observableVals.error("Login Expired");
-        return;
+        return Subscription.EMPTY;
       }
       let token: string = this.auth.token!;
-      this.http.post<void>(`${this.baseUrl}/${urlSuffix}`, payload, {headers: {"auth-token": token}})
+      return this.http.post<void>(`${this.baseUrl}/${urlSuffix}`, payload, {headers: {"auth-token": token}})
       .subscribe({
         next: value => {
           observableVals.next(value);
         },
         error: error => {
-          console.log("got error");
           observableVals.error(error.error.message);
         }
       })
     } else {
       observableVals.error("Please log in");
-      return;
+      return Subscription.EMPTY;
     }
   }
 

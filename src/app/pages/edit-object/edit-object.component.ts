@@ -29,7 +29,7 @@ export class EditObjectComponent implements OnInit, AfterViewChecked {
   formGroup!: FormGroup;
 
   saveList(eventInput: string[]) {
-    let outputObj: PdEditObject = this.formGroup.value;
+    let outputObj: PdEditObject = this.formGroup.getRawValue();
     outputObj.name = outputObj.name.trim();
     outputObj.library = outputObj.library.trim();
     outputObj.objectTags = eventInput;

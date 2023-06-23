@@ -1,6 +1,10 @@
 <div class="flex justify-between w-10/12 mx-auto">
-    <div class="grow flex content-center flex-wrap">
+    <div class="grow flex content-center flex-wrap gap-4">
         <button class="edit-button" routerLink="../../">Libraries</button>
+        <button *ngIf="authService.loggedIn && !updating" class="edit-button" (click)="updateFromDeken()">
+            Update from Deken</button>
+        <button *ngIf="authService.loggedIn && updating" class="cancel-button" (click)="cancelUpdate()">
+            Cancel</button>
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
     <div class="grow flex justify-end content-center flex-wrap gap-4">
@@ -11,6 +15,7 @@
         </ng-container>
     </div>
 </div>
+<div *ngIf="updating" class="mx-auto w-10/12"><b>{{this.updateMsg}}</b></div>
 <div class="entityInfo flex justify-around">
     <div class="grow basis-0">
         <h2 *ngIf="pdLibrary?.author && pdLibrary?.author !== ''"><b>Author:</b> {{pdLibrary?.author}}</h2>
