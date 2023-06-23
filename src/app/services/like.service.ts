@@ -16,6 +16,18 @@ export class LikeService {
   }
 
   deleteLibraryLike(libName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
-    this.authService.deleteWithAuth(`like/library/${libName}`, obs);
+    this.authService.deleteWithAuth(`like/library/object/${libName}`, obs);
+  }
+
+  hasUserLikedObject(libName: string, objName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
+    this.authService.getWithAuth(`like/object/${libName}/${objName}`, obs);
+  }                                     
+                                        
+  addObjectLike(libName: string, objName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
+    this.authService.postWithAuth(`like/object/${libName}/${objName}`, null, obs);
+  }                                     
+
+  deleteObjectLike(libName: string, objName: string, obs: {next: (value: boolean)=>void, error: (msg: string) => void}) {
+    this.authService.deleteWithAuth(`like/object/${libName}/${objName}`, obs);
   }
 }
