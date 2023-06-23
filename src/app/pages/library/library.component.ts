@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { DekenService } from 'src/app/deken.service';
 import { PdEditObject } from 'src/app/models/pd-edit-object';
 import { PdLibrary } from 'src/app/models/pd-library';
 import { PdObject } from 'src/app/models/pd-object';
 import { AuthService } from 'src/app/services/auth.service';
+import { DekenService } from 'src/app/services/deken.service';
 import { LibraryService } from 'src/app/services/library.service';
+import { LikeService } from 'src/app/services/like.service';
 
 @Component({
   selector: 'app-library',
@@ -18,9 +19,10 @@ export class LibraryComponent implements OnInit{
   updating: boolean = false;
   updateMsg: string = "";
   currentSubscription: any;
+  hasUserLiked: boolean = false;
 
   constructor(private libraryService: LibraryService, private toastrService: ToastrService,
-    protected authService: AuthService, private dekenService: DekenService) {}
+    protected authService: AuthService, private dekenService: DekenService, private likeService: LikeService) {}
 
   persistObjs(makeObjs: {name: string, description: string}[]) {
     let pendingObjs: number = makeObjs.length;
@@ -143,6 +145,31 @@ export class LibraryComponent implements OnInit{
     });
   }
 
+  toggleLike() {
+    let currLike: boolean = this.hasUserLiked;
+    if(currLike) {
+      this.likeService.deleteLibraryLike(this.name!, {
+        next: () => {
+          this.toastrService.success("unstarred " + this.name);
+          this.hasUserLiked = false;
+        },
+        error: (msg: string) => {
+          this.toastrService.error(msg, "Couldn't unstar " + this.name);
+        }
+      })
+    } else {
+      this.likeService.addLibraryLike(this.name!, {
+        next: () => {
+          this.toastrService.success("starred " + this.name);
+          this.hasUserLiked = true;
+        },
+        error: (msg: string) => {
+          this.toastrService.error(msg, "Couldn't star " + this.name);
+        }
+      })
+    }
+  }
+
   ngOnInit(): void {
     if(typeof(this.name) !== "string") {
       this.toastrService.error("No Library Provided");
@@ -157,6 +184,14 @@ export class LibraryComponent implements OnInit{
         this.toastrService.error(message, "Couldn't get library info");
       },
       complete() {},
+    });
+    this.likeService.hasUserLikedLibrary(this.name, {
+      next: (value: boolean) => {
+        this.hasUserLiked = value;
+      },
+      error: (msg: string) => {
+        this.toastrService.error(msg, "couldn't get 'likes'")
+      }
     });
   }
 }

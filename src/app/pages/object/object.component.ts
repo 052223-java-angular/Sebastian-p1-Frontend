@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PdObject } from 'src/app/models/pd-object';
 import { AuthService } from 'src/app/services/auth.service';
 import { LibraryService } from 'src/app/services/library.service';
+import { LikeService } from 'src/app/services/like.service';
 
 @Component({
   selector: 'app-object',
@@ -18,9 +19,11 @@ export class ObjectComponent implements OnInit {
   pdObject: PdObject | null = null;
   editingComment: boolean = false;
   commentControl: FormControl = new FormControl('', Validators.required);
+  hasUserLiked: boolean = false;
 
   constructor(private libraryService: LibraryService, private toastrService: ToastrService,
-    protected authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+    protected authService: AuthService, private router: Router, private route: ActivatedRoute,
+    private likeService: LikeService) {}
 
   deleteMe() {
     this.authService.deleteWithAuth(`libraries/${this.libName}/${this.objName}`, {
@@ -79,6 +82,39 @@ export class ObjectComponent implements OnInit {
       error: (msg) => {
         this.toastrService.error(msg, "Failed to Post");
       } 
+    });
+  }
+
+  toggleLike() {
+    let currLike: boolean = this.hasUserLiked;
+    if(currLike) {
+      this.likeService.deleteObjectLike(this.libName!, this.objName!,{
+        next: () => {
+          this.toastrService.success("unstarred " + this.objName);
+          this.hasUserLiked = false;
+        },
+        error: (msg: string) => {
+          this.toastrService.error(msg, "Couldn't unstar " + this.objName);
+        }
+      })
+    } else {
+      this.likeService.addObjectLike(this.libName!, this.objName!, {
+        next: () => {
+          this.toastrService.success("starred " + this.objName);
+          this.hasUserLiked = true;
+        },
+        error: (msg: string) => {
+          this.toastrService.error(msg, "Couldn't star " + this.objName);
+        }
+      })
+    }
+    this.likeService.hasUserLikedObject(this.libName!, this.objName!, {
+      next: (value: boolean) => {
+        this.hasUserLiked = value;
+      },
+      error: (msg: string) => {
+        this.toastrService.error(msg, "couldn't get 'likes'")
+      }
     });
   }
 
