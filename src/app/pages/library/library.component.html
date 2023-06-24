@@ -7,16 +7,16 @@
             Cancel</button>
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
-    <div class="grow flex justify-end content-center basis-0 flex-wrap gap-4">
-        <ng-container *ngIf="authService.loggedIn">
-            <div *ngIf="hasUserLiked; else unStarred">Starred
-                <img (click)="toggleLike()" src="assets/star-fill.svg"></div>
+    <div class="grow flex justify-end basis-0 flex-wrap gap-4">
+        <ng-container class="flex" *ngIf="authService.loggedIn">
+            <div class="my-auto" *ngIf="hasUserLiked; else unStarred">Starred
+                <img class="like-link" (click)="toggleLike()" src="assets/star-fill.svg"></div>
             <ng-template #unStarred>
-                <div>Star
-                <img (click)="toggleLike()" src="assets/star.svg"></div>
+                <div class="my-auto">Star
+                <img class="like-link" (click)="toggleLike()" src="assets/star.svg"></div>
             </ng-template>
-            <button class="edit-button" routerLink="../new">New Object</button>
-            <button class="edit-button" routerLink="../edit/">
+            <button class="edit-button my-auto" routerLink="../new">New Object</button>
+            <button class="edit-button my-auto" routerLink="../edit/">
             Edit</button>
         </ng-container>
     </div>

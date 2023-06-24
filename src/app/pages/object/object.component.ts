@@ -126,14 +126,15 @@ export class ObjectComponent implements OnInit {
       },
       complete() {}
     });
-    this.likeService.hasUserLikedObject(this.libName!, this.objName!, {
-      next: (value: boolean) => {
-        this.hasUserLiked = value;
-      },
-      error: (msg: string) => {
-        this.toastrService.error(msg, "couldn't get 'likes'")
-      }
-    });
+    if(this.authService.loggedIn)
+      this.likeService.hasUserLikedObject(this.libName!, this.objName!, {
+        next: (value: boolean) => {
+          this.hasUserLiked = value;
+        },
+        error: (msg: string) => {
+          this.toastrService.error(msg, "couldn't get 'likes'")
+        }
+      });
   }
 
 }

@@ -4,16 +4,18 @@
     </div>
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: [{{pdObject?.name}}]</h1>
     <div class="grow flex justify-end content-center flex-wrap gap-4">
-        <div *ngIf="hasUserLiked; else unStarred">Starred
-            <img class="like-link" (click)="toggleLike()" src="assets/star-fill.svg"></div>
-        <ng-template #unStarred>
-            <div>Star
-            <img class="like-link" (click)="toggleLike()" src="assets/star.svg"></div>
-        </ng-template>
-        <button *ngIf="authService.loggedIn" class="cancel-button" (click)="deleteMe()">
-        Delete</button>
-        <button *ngIf="authService.loggedIn" class="edit-button" [routerLink]="'../../edit/' + [pdObject?.name]">
-        Edit</button>
+        <ng-container class="flex" *ngIf="authService.loggedIn">
+            <div class="my-auto" *ngIf="hasUserLiked; else unStarred">Starred
+                <img class="like-link" (click)="toggleLike()" src="assets/star-fill.svg"></div>
+            <ng-template #unStarred>
+                <div class="my-auto">Star
+                <img class="like-link" (click)="toggleLike()" src="assets/star.svg"></div>
+            </ng-template>
+            <button *ngIf="authService.loggedIn" class="my-auto cancel-button" (click)="deleteMe()">
+            Delete</button>
+            <button *ngIf="authService.loggedIn" class="my-auto edit-button" [routerLink]="'../../edit/' + [pdObject?.name]">
+            Edit</button>
+        </ng-container>
     </div>
 </div>
 <div class="entityInfo flex justify-around">
