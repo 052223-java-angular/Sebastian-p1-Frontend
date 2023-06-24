@@ -185,13 +185,14 @@ export class LibraryComponent implements OnInit{
       },
       complete() {},
     });
-    this.likeService.hasUserLikedLibrary(this.name, {
-      next: (value: boolean) => {
-        this.hasUserLiked = value;
-      },
-      error: (msg: string) => {
-        this.toastrService.error(msg, "couldn't get 'likes'")
-      }
-    });
+    if(this.authService.loggedIn)
+      this.likeService.hasUserLikedLibrary(this.name, {
+        next: (value: boolean) => {
+          this.hasUserLiked = value;
+        },
+        error: (msg: string) => {
+          this.toastrService.error(msg, "couldn't get 'likes'")
+        }
+      });
   }
 }

@@ -1,1 +1,42 @@
-<p>search works!</p>
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow basis-0 flex content-center flex-wrap">
+    </div>
+    <h1 class="text-center grow-0 my-0 text-3xl">Search</h1>
+    <div class="grow basis-0 flex justify-end content-center flex-wrap gap-4">
+    </div>
+</div>
+
+<div class="flex entityInfo p-1">
+    <label class="my-auto m-1" for="searchBar">Search</label>
+    <input type="text" [formControl]="searchInputControl" (keydown.enter)="search()" class="grow basis-0" id="searchBar">
+    <label class="my-auto mx-2">by</label>
+    <select #selectBox class="mx-auto rounded py-1 px-2 border text-blue-800 border-blue-800 mr-2">
+        <option value="object">Object</option>
+        <option value="library">Library</option>
+        <option value="object_tag">Object Tag</option>
+        <option value="library_tag">Library Tag</option>
+    </select>
+    <button class="edit-button" [disabled]="searchInputControl.invalid" (click)="search()">Search</button>
+</div>
+
+<ng-container *ngIf="hasSearched">
+    <div class="flex w-10/12 mx-auto">
+        <div class="flex flex-col grow basis-0">
+            <h2 class="mx-auto grow-0">Object Results</h2>
+            <div class="results">
+                <ng-container *ngFor="let i of this.objResults">
+                    <a class="block" [routerLink]="'/libraries/' + i.replace('/', '/view/')">{{i}}</a>
+                </ng-container>
+            </div>
+        </div>
+        <div class="flex flex-col grow basis-0">
+            <h2 class="mx-auto grow-0">Library Results</h2>
+            <div class="results">
+                <ng-container *ngFor="let j of this.libResults">
+                    <a class="block" [routerLink]="'/libraries/' + j + '/view'">{{j}}</a>
+                </ng-container>
+
+            </div>
+        </div>
+    </div>
+</ng-container>
