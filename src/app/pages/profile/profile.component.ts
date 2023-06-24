@@ -53,7 +53,7 @@ export class ProfileComponent implements OnInit {
       next: (user: User) => {
         this.user = user;
         if(user.hasProfilePic)
-          this.picSrcUrl = this.userService.profilePicUrl + user.id + ".jpg"
+          this.picSrcUrl = this.userService.profilePicUrl + user.id + ".jpg" + this.userService.profilePicSuffix;
         else this.picSrcUrl = "assets/placeholderProfilePic.png"
       },
       error: (msg) => {

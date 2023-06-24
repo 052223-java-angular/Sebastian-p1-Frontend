@@ -1,13 +1,13 @@
 <div class="flex justify-between w-10/12 mx-auto">
-    <div class="grow flex content-center flex-wrap">
+    <div class="grow basis-0 flex content-center flex-wrap">
     </div>
-    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">My Profile</h1>
-    <div class="grow flex justify-end content-center flex-wrap gap-4">
+    <h1 class="text-center grow-0 my-0 text-3xl">My Profile</h1>
+    <div class="grow basis-0 flex justify-end content-center flex-wrap gap-4">
         <button class="edit-button" routerLink="edit/">
         Edit</button>
     </div>
 </div>
-<img class="mx-auto" [src]="this.picSrcUrl">
+<img class="mx-auto my-2" [src]="this.picSrcUrl">
 
 <div class="entityInfo flex justify-around">
     <h2><b>Username:</b> {{user?.username}}</h2>

@@ -7,8 +7,14 @@ import { User } from '../models/user';
 })
 export class UserService {
   user: User | null = null;
-  profilePicUrl='http://localhost:8080/puredatabase2/api/profile_pics/'
+  profilePicUrl='http://localhost:8080/puredatabase2/api/profile_pics/';
+  // in order to trigger re-load
+  profilePicSuffix= '';
   constructor(private authService: AuthService) { }
+
+  newProfileSuffix() {
+    this.profilePicSuffix = '?' + Math.random().toString(36).slice(2, 7);
+  }
 
   getMe(obs: {next: (user: User) => void, error: (msg: string) => void}) {
     this.authService.getWithAuth("user/me", obs);
