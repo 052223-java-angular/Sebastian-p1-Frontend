@@ -12,20 +12,21 @@ import { ObjectComponent } from './pages/object/object.component';
 import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 import { EditLibraryComponent } from './pages/edit-library/edit-library.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: 'libraries/:libName/edit/:objName', component: EditObjectComponent},
-  { path: 'libraries/:libName/view/:objName', component: ObjectComponent},
-  { path: 'libraries/:libName/new', component: EditObjectComponent},
+  { path: 'libraries/:libName/edit/:objName', component: EditObjectComponent, canActivate: [authGuard]},
+  { path: 'libraries/:libName/view/:objName', component: ObjectComponent },
+  { path: 'libraries/:libName/new', component: EditObjectComponent, canActivate: [authGuard] },
   { path: 'libraries/:name/view', component: LibraryComponent },
-  { path: 'libraries/:name/edit', component: EditLibraryComponent},
-  { path: 'libraries/new', component: EditLibraryComponent},
+  { path: 'libraries/:name/edit', component: EditLibraryComponent, canActivate: [authGuard] },
+  { path: 'libraries/new', component: EditLibraryComponent, canActivate: [authGuard] },
   { path: 'libraries', component: LibrariesComponent },
   { path: 'search', component: SearchComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'profile/edit', component: EditProfileComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
+  { path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard]},
   { path: 'about', component: AboutComponent },
   { path: '', redirectTo: 'about', pathMatch: "full" },
   { path: '**', component: NotFoundComponent }
