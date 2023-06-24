@@ -11,6 +11,7 @@ import { LibraryComponent } from './pages/library/library.component';
 import { ObjectComponent } from './pages/object/object.component';
 import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 import { EditLibraryComponent } from './pages/edit-library/edit-library.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   { path: 'libraries/:libName/edit/:objName', component: EditObjectComponent},
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'profile/edit', component: EditProfileComponent },
   { path: 'about', component: AboutComponent },
   { path: '', redirectTo: 'about', pathMatch: "full" },
   { path: '**', component: NotFoundComponent }

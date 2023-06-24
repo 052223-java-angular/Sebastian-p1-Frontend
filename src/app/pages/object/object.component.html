@@ -5,10 +5,10 @@
     <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: [{{pdObject?.name}}]</h1>
     <div class="grow flex justify-end content-center flex-wrap gap-4">
         <div *ngIf="hasUserLiked; else unStarred">Starred
-            <img (click)="toggleLike()" src="assets/star-fill.svg"></div>
+            <img class="like-link" (click)="toggleLike()" src="assets/star-fill.svg"></div>
         <ng-template #unStarred>
             <div>Star
-            <img (click)="toggleLike()" src="assets/star.svg"></div>
+            <img class="like-link" (click)="toggleLike()" src="assets/star.svg"></div>
         </ng-template>
         <button *ngIf="authService.loggedIn" class="cancel-button" (click)="deleteMe()">
         Delete</button>
