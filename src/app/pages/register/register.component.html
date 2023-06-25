@@ -1,0 +1,27 @@
+<h1 class="text-center mt-8 mb-4">Register</h1>
+
+<div class="card">
+    <form [formGroup]="registerFormGroup" (ngSubmit)="submitForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" autocomplete="username" required formControlName="username">
+        <div *ngIf="registerFormGroup.controls['username'].invalid && (registerFormGroup.controls['username'].dirty ||
+        registerFormGroup.controls['username'].touched)" class="alert">username must be 8-20 characters, cannot start or end
+        with . or _, and can't have . and _ in succession</div>
+        <div class="mt-2 border-b border-black"></div>
+        <label for="password">Password:</label>
+        <input type="password" id="password" autocomplete="new-password" required formControlName="password">
+        <div *ngIf="registerFormGroup.controls['password'].invalid && (registerFormGroup.controls['password'].dirty ||
+        registerFormGroup.controls['password'].touched)" class="alert">password must be at least 8 characters
+        and contain one number.</div>
+        <div class="mt-2 border-b border-black"></div>
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" autocomplete="new-password" required formControlName="confirmPassword">
+        <button class="text-center block mx-auto mt-2 rounded
+         py-1 px-2 bg-black text-white" type="submit" id="submit" [disabled]="!registerFormGroup.valid">Register</button>
+         <div *ngIf="nonMatching">Nonmatching Password</div>
+    </form>
+</div>
+<div class="my-6 text-center">
+    Already have an account? <a routerLink='/login' class="mx-auto rounded py-1 px-2 border text-blue-800 border-blue-800">
+        Login</a>
+</div>

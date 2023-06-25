@@ -1,0 +1,15 @@
+<h1 class="text-center mt-8 mb-4">Login</h1>
+
+<div class="card">
+    <form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+        <label for="username">Username:</label>
+        <input type="text" id="username" autocomplete="username" required formControlName="username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" autocomplete="current-password" required formControlName="password">
+        <button class="text-center block mx-auto mt-2 rounded
+         py-1 px-2 bg-black text-white" type="submit" id="submit" [disabled]="formGroup.invalid">Login</button>
+    </form>
+</div>
+<div *ngIf="!authService.loggedIn" class="my-6 text-center">
+    <a routerLink='/register' class="mx-auto rounded py-1 px-2 border text-blue-800 border-blue-800">Create an Account</a>
+</div>

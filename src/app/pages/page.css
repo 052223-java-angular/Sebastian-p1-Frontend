@@ -1,0 +1,27 @@
+h1 {
+    @apply text-3xl;
+}
+
+.card {
+    @apply border-2 px-2 pb-2 my-2 mx-auto max-w-sm rounded border-gray-500;
+}
+
+form input[type="text"] {
+    @apply border mt-0 p-1 leading-none rounded-md border-slate-500 w-full;
+}
+/* something didn't like combined attribute selector */
+form input[type="password"] {
+    @apply border mt-0 p-1 leading-none rounded-md border-slate-500 w-full;
+}
+
+form label {
+    @apply inline-block;
+}
+
+input:focus {
+    @apply outline-blue-700;
+}
+
+p {
+    @apply my-3 py-2 px-3 w-10/12 border-8 rounded-md mx-auto;
+}

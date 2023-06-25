@@ -1,0 +1,21 @@
+<nav class="flex justify-between px-5 py-1 content-around border-b-4 border-pdextended-signal-iolet">
+<!-- change between login & profile buttons based on if logged in -->
+    <ul class="navbar-edge">
+        <li><a routerLink="">About</a></li>
+        <li><a routerLink="search">Search</a></li>
+        <li><a routerLink="libraries">Libraries</a></li>
+    </ul>
+    <ul class="grow-0">
+        <li><h2 class="text-2xl">PureDatabase2</h2></li>
+    </ul>
+    <ul *ngIf="authService.loggedIn; else notLoggedIn" class="navbar-edge justify-end">
+        <li><a routerLink="profile">Profile</a></li>
+        <li class="falsea" (click)="logout()">Logout</li>
+    </ul>
+    <ng-template #notLoggedIn>
+    <ul class="navbar-edge justify-end">
+        <li><a routerLink="login">Login</a></li>
+    </ul>
+    </ng-template>
+    
+</nav>

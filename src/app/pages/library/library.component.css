@@ -1,0 +1,54 @@
+@import "src/css/tags";
+
+.entityInfo {
+    @apply mt-1 mb-3 px-1 w-10/12 border-8 rounded-md mx-auto;
+}
+
+.entityInfo h2 {
+    @apply text-lg;
+}
+
+.tag-box {
+    @apply flex grow basis-0 content-center flex-wrap my-1;
+}
+
+.edit-button {
+    @apply bg-blue-500 text-white inline-block h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.edit-button:hover {
+    @apply underline underline-offset-2;
+}
+
+.obj-grid {
+    @apply grid w-10/12 border-slate-800 border-t-2 border-x-2;
+    grid-template-columns: 0.75fr 0.75fr 1.75fr 1.5fr;
+}
+
+.obj-grid > * {
+    @apply border border-slate-300 px-1;
+}
+
+p, a {
+    @apply text-lg;
+}
+
+.cancel-button {
+    @apply bg-red-500 text-white inline-block h-fit border rounded-lg px-2;
+    padding-top: 0.15rem;
+    padding-bottom: 0.15rem;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
+}
+
+.cancel-button:hover {
+    @apply underline underline-offset-2;
+}
+
+.like-link:hover {
+    cursor: pointer;
+}

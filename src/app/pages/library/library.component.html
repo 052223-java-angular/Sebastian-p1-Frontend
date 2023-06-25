@@ -1,0 +1,54 @@
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow flex content-center basis-0 flex-wrap gap-4">
+        <button class="edit-button" routerLink="../../">Libraries</button>
+        <button *ngIf="authService.loggedIn && !updating" class="edit-button" (click)="updateFromDeken()">
+            Update from Deken</button>
+        <button *ngIf="authService.loggedIn && updating" class="cancel-button" (click)="cancelUpdate()">
+            Cancel</button>
+    </div>
+    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
+    <div class="grow flex justify-end basis-0 flex-wrap gap-4">
+        <ng-container class="flex" *ngIf="authService.loggedIn">
+            <div class="my-auto" *ngIf="hasUserLiked; else unStarred">Starred
+                <img class="like-link" (click)="toggleLike()" src="assets/star-fill.svg"></div>
+            <ng-template #unStarred>
+                <div class="my-auto">Star
+                <img class="like-link" (click)="toggleLike()" src="assets/star.svg"></div>
+            </ng-template>
+            <button class="edit-button my-auto" routerLink="../new">New Object</button>
+            <button class="edit-button my-auto" routerLink="../edit/">
+            Edit</button>
+        </ng-container>
+    </div>
+</div>
+<div *ngIf="updating" class="mx-auto w-10/12"><b>{{this.updateMsg}}</b></div>
+<div class="entityInfo flex justify-around">
+    <div class="grow basis-0">
+        <h2 *ngIf="pdLibrary?.author && pdLibrary?.author !== ''"><b>Author:</b> {{pdLibrary?.author}}</h2>
+        <h2><b>Description:</b> {{pdLibrary?.description}}</h2>
+        <h2 *ngIf="pdLibrary?.recentVersion && pdLibrary?.recentVersion !== ''">
+            <b>First Library Version:</b> {{pdLibrary?.recentVersion}}</h2>
+    </div>
+    <div class="tag-box">
+        <h2 class="basis-0 grow-0 text-xl w-full text-left">Tags: </h2>
+        <div class="grow flex flex-wrap">
+            <span class="base-button box-border" *ngFor="let tag of pdLibrary?.libraryTags; let last = last">
+                {{tag.tag.name + (last ? "" : " ")}}</span>
+        </div>
+    </div>
+</div>
+
+<div class="mx-auto obj-grid rounded-t">
+    <p>Name</p><p>Author</p><p>Description</p><p>Tags</p>
+</div>
+<div class="mx-auto obj-grid rounded-b border-b-2">
+    <ng-container *ngFor="let object of pdLibrary?.objects">
+        <div><a class="justify-start" [routerLink]="object.name">{{object.name}}</a></div>
+        <p>{{object.author}}</p>
+        <p>{{object.description}}</p>
+        <p>
+            <ng-container *ngFor="let tag of object.objectTags; let last = last">
+                {{tag.tag.name + (last ? "" : ", ")}}</ng-container>
+        </p>
+    </ng-container>
+</div>
