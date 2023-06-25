@@ -3,12 +3,13 @@ import { TagService } from './tag.service';
 import { Observer } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LibraryTagService implements TagService {
-  baseUrl='http://localhost:8080/puredatabase2/api/library_tags'
+  baseUrl= environment.apiBaseUrl + '/library_tags'
   constructor(private http: HttpClient, private authService: AuthService) { }
   getTags(tagObserver: Observer<string[]>): void {
     this.http.get<string[]>(this.baseUrl).subscribe(tagObserver);

@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-profile',
@@ -52,7 +53,7 @@ export class EditProfileComponent implements OnInit {
       next: (user: User) => {
         this.user = user;
         if(user.hasProfilePic)
-          this.picSrcUrl = this.userService.profilePicUrl + user.id + ".jpg" + this.userService.profilePicSuffix;
+          this.picSrcUrl = environment.profilePicUrl + user.id + ".jpg" + this.userService.profilePicSuffix;
         else this.picSrcUrl = "assets/placeholderProfilePic.png"
         this.form?.controls["username"].setValue(user.username);
         this.form?.controls["email"].setValue(user.email);
