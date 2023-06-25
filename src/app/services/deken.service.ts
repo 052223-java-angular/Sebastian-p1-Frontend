@@ -29,7 +29,7 @@ export class DekenService {
         let versions = value.result.libraries[name];
         let keys: string[] = Object.keys(versions);
         let version: string = keys.reduce(function(preValue: string, curValue: string) {
-          return preValue.toLowerCase > curValue.toLowerCase ? preValue : curValue;
+          return preValue.toLowerCase() > curValue.toLowerCase() ? preValue : curValue;
         })
         const url: string = versions[version][0].url;
         addressObserver.next(url);
