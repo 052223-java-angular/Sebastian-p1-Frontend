@@ -22,6 +22,7 @@ import { EdittagComponent } from './components/edittag/edittag.component';
 import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 import { EditLibraryComponent } from './pages/edit-library/edit-library.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { EditProfileComponent } from './pages/edit-profile/edit-profile.componen
     EditObjectComponent,
     EditLibraryComponent,
     EditProfileComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
