@@ -13,6 +13,7 @@ import { EditObjectComponent } from './pages/edit-object/edit-object.component';
 import { EditLibraryComponent } from './pages/edit-library/edit-library.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { authGuard } from './guards/auth.guard';
+import { UserComponent } from './pages/user/user.component';
 
 const routes: Routes = [
   { path: 'libraries/:libName/edit/:objName', component: EditObjectComponent, canActivate: [authGuard]},
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
   { path: 'profile/edit', component: EditProfileComponent, canActivate: [authGuard]},
+  { path: 'user/:userId', component: UserComponent},
   { path: 'about', component: AboutComponent },
   { path: '', redirectTo: 'about', pathMatch: "full" },
   { path: '**', component: NotFoundComponent }
