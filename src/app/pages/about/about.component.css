@@ -1,0 +1,4 @@
+@import '../page.css';
+a {
+    @apply text-blue-600;
+}

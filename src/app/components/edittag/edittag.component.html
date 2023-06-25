@@ -1,0 +1,27 @@
+<div class="tag-container">
+    <div class="tag-pool">
+        <h1 class="text-xl">Current Tags: </h1>
+        <span class="base-tag" *ngFor="let tag of stringTags; index as i">
+            {{tag}}<a class="px-1 delete-button" (click)="deleteTag(i)">X</a></span>
+    </div>
+    <div class="scrollbox-container">
+        <div class="scrollbox-title">
+            <h2 class="grow text-lg my-auto">Available Tags:</h2>
+            <div class="grow-0">
+                <button id="addButton" (click)="addTag()" class="base-button">+</button>
+                <button (click)="dialog.showModal()" class="addTag-button base-button">New</button></div>
+            </div>
+        <select #selectbox class="scrollbox" size="4">
+            <option *ngFor="let tag of globalTags" value="{{tag}}">{{tag}}</option>
+        </select>
+    </div>
+</div>
+
+<dialog #dialog class="rounded-lg w-96">
+    <label for="tagInput" class="text-center">Enter a new Tag:</label>
+    <input type="text" id="tagInput" class="mb-3" [formControl]="tagInputControl">
+    <div class="flex justify-around"><button (click)="dialog.close()" class="cancel-button">Cancel</button>
+        <button (click)="dialog.close();newTag()" [disabled]="tagInputControl.invalid"
+        class="edit-button">OK</button>
+    </div>
+</dialog>

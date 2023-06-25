@@ -1,0 +1,66 @@
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow flex content-center flex-wrap">
+        <button class="edit-button" routerLink="../">{{libName}}</button>
+    </div>
+    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Object: [{{pdObject?.name}}]</h1>
+    <div class="grow flex justify-end content-center flex-wrap gap-4">
+        <ng-container class="flex" *ngIf="authService.loggedIn">
+            <div class="my-auto" *ngIf="hasUserLiked; else unStarred">Starred
+                <img class="like-link" (click)="toggleLike()" src="assets/star-fill.svg"></div>
+            <ng-template #unStarred>
+                <div class="my-auto">Star
+                <img class="like-link" (click)="toggleLike()" src="assets/star.svg"></div>
+            </ng-template>
+            <button *ngIf="authService.loggedIn" class="my-auto cancel-button" (click)="deleteMe()">
+            Delete</button>
+            <button *ngIf="authService.loggedIn" class="my-auto edit-button" [routerLink]="'../../edit/' + [pdObject?.name]">
+            Edit</button>
+        </ng-container>
+    </div>
+</div>
+<div class="entityInfo flex justify-around">
+    <div class="grow basis-0">
+        <h2 *ngIf="pdObject?.author && pdObject?.author !== ''"><b>Author:</b> {{pdObject?.author}}</h2>
+        <h2><b>Description:</b> {{pdObject?.description}}</h2>
+        <h2 *ngIf="pdObject?.libraryVersion && pdObject?.libraryVersion !== ''">
+            <b>First Library Version:</b> {{pdObject?.libraryVersion}}</h2>
+    </div>
+    <div class="tag-box">
+        <h2 class="basis-0 grow-0 text-xl w-full text-left">Tags: </h2>
+        <div class="grow flex flex-wrap">
+            <span class="base-button box-border" *ngFor="let tag of pdObject?.objectTags; let last = last">
+                {{tag.tag.name + (last ? "" : " ")}}</span>
+        </div>
+    </div>
+</div>
+<h2 class="text-2xl text-center">Help/Detail Text</h2>
+<p class="entityInfo text-lg">{{pdObject?.helpText}}</p>
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow flex content-center flex-wrap">
+    </div>
+    <h2 class="text-2xl text-center">Comments</h2>
+    <div class="grow flex justify-end content-center flex-wrap gap-4">
+        <ng-container *ngIf="authService.loggedIn">
+            <button *ngIf="!this.editingComment; else editButtons" class="mb-1 edit-button"
+                (click)="this.editComment()">New Comment</button>
+            <ng-template #editButtons>
+                <button class="cancel-button" (click)="cancelEdit()">Cancel</button>
+                <button class="edit-button" [disabled]="commentControl.invalid" (click)="submitComment()">
+                    Post
+                </button>
+            </ng-template>
+        </ng-container>
+    </div>
+</div>
+<div class="flex w-10/12 mx-auto" *ngIf="editingComment">
+    <textarea [formControl]="commentControl" class="mt-1 mb-3 px-1 border-8 rounded-md mx-auto w-full"></textarea>
+</div>
+<div class="w-10/12 border-8 rounded-md p-1 mx-auto my-4 border-pdextended-signal-iolet">
+    <ng-container *ngFor="let comment of pdObject?.comments">
+        <div class="flex justify-between">
+            <h3 class="m-0"><b>User:</b> {{comment.user.username}}</h3>
+            <h3 class="m-0"><b>Time Posted:</b> {{comment.timePosted}}</h3>
+        </div>
+        <p class="m-0 px-1 border-pdextended-signal-iolet border">{{comment.comment}}</p>
+    </ng-container>
+</div>
