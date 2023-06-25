@@ -1,0 +1,30 @@
+<div class="flex justify-between w-10/12 mx-auto">
+    <div class="grow basis-0 flex content-center flex-wrap">
+    </div>
+    <h1 class="text-center grow-0 my-0 text-3xl">{{user?.username}}'s Profile</h1>
+    <div class="grow basis-0 flex justify-end content-center flex-wrap gap-4">
+    </div>
+</div>
+<img class="mx-auto my-2" [src]="this.picSrcUrl">
+
+<div class="entityInfo flex justify-around">
+    <h2><b>Username:</b> {{user?.username}}</h2>
+    <h2><b>E-mail:</b> {{user?.email}}</h2>
+</div>
+
+<div class="flex basis-0 grow w-10/12 mx-auto justify-around">
+    <h2 class="text-lg">Object Likes</h2>
+    <h2 class="text-lg">Library Likes</h2>
+</div>
+<div class="entityInfo flex">
+    <div class="like-parent">
+        <ng-container *ngFor="let i of this.objectLikes">
+            <a [routerLink]="'/libraries/' + i.replace('/', '/view/')">{{i}}</a>
+        </ng-container>
+    </div>
+    <div class="like-parent">
+        <ng-container *ngFor="let j of this.libraryLikes">
+            <a [routerLink]="'/libraries/' + j + '/view'">{{j}}</a>
+        </ng-container>
+    </div>
+</div>
