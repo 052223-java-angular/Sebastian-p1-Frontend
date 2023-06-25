@@ -1,0 +1,42 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-and-deploy:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Install angular cli?
+      run: npm install -g @angular/cli
+    - name: Build
+      run: ng build --configuration production
+    - name: Upload to S3
+      uses: keithweaver/aws-s3-github-action@v1.0.0
+      with:
+        command: cp
+        source: ./dist/puredataend/
+        destination: s3://puredatabase2-app-bucket/
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: us-west-1
+        flags: --recursive
