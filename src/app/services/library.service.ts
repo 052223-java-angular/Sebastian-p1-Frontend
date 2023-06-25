@@ -4,12 +4,13 @@ import { PdLibrary } from '../models/pd-library';
 import { Observer } from 'rxjs';
 import { PdObject } from '../models/pd-object';
 import { LibrarySummary } from '../models/library-summary';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LibraryService {
-  baseUrl='http://localhost:8080/puredatabase2/api/libraries'
+  baseUrl= environment.apiBaseUrl + '/libraries'
   private recentLibrary: PdLibrary | null = null;
   constructor(private http: HttpClient) { }
 

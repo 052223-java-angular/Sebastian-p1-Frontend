@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user';
 import { LikeService } from 'src/app/services/like.service';
 import { RecommendationService } from 'src/app/services/recommendation.service';
 import { UserService } from 'src/app/services/user.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-profile',
@@ -53,7 +54,7 @@ export class ProfileComponent implements OnInit {
       next: (user: User) => {
         this.user = user;
         if(user.hasProfilePic)
-          this.picSrcUrl = this.userService.profilePicUrl + user.id + ".jpg" + this.userService.profilePicSuffix;
+          this.picSrcUrl = environment.profilePicUrl + user.id + ".jpg" + this.userService.profilePicSuffix;
         else this.picSrcUrl = "assets/placeholderProfilePic.png"
       },
       error: (msg) => {

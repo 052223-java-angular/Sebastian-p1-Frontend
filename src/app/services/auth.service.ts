@@ -5,6 +5,7 @@ import { Auth } from '../models/auth';
 import { LoginPayload } from '../models/login-payload';
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
   auth: Auth | null = null;
   loggedIn: boolean = false;
   expDate: Date | null = null;
-  baseUrl='http://localhost:8080/puredatabase2/api'
+  baseUrl = environment.apiBaseUrl;
 
   private unsetAuth() {
     this.auth = null;

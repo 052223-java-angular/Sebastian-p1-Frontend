@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SearchResults } from '../models/search-results';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  baseUrl='http://localhost:8080/puredatabase2/api/search/'
+  baseUrl= environment.apiBaseUrl + '/search/'
   constructor(private http: HttpClient) { }
 
   search(term: string, mode: string, obs: {next: (results: SearchResults)=> void, error: (error: any)=> void}) {
