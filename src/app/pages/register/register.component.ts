@@ -46,8 +46,8 @@ export class RegisterComponent {
         this.toastr.success("Please Login", "Successfully Registered");
         this.router.navigateByUrl("/login");
       },
-      error: error => {
-        this.toastr.error(error.error.message, "Unsuccessful Registration");
+      error: message => {
+        this.toastr.error(message, "Unsuccessful Registration");
       }
     })
   }
