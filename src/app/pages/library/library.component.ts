@@ -64,11 +64,18 @@ export class LibraryComponent implements OnInit{
         }
     }
 
+    displayUpdatedObjs(objects: Array<PdObject>): void {
+        this.updating = false;
+        this.updateMsg = "Updated objects: " + objects.map(elem => elem.name).join(", ");
+        setTimeout(this.displayNoUpdate, 4000);
+    }
+
   updateFromDeken() {
     this.updating = true;
     this.updateMsg = "Getting Library Info for " + this.name + " ...";
     let responseObserver = {
       next: (objects: Array<PdObject>) => {
+        this.displayUpdatedObjs(objects);
         this.updateAllObjs(objects);
       },
       error: (_: any) => {
