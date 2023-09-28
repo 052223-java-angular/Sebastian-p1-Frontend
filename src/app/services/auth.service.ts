@@ -39,7 +39,7 @@ export class AuthService {
     }
   }
 
-  deleteWithAuth<T>(urlSuffix: string, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
+  deleteWithAuth(urlSuffix: string, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
     if(this.auth != null) {
       const currentDate: Date = new Date();
       if(this.expDate!.getTime() < currentDate.getTime()) {
@@ -63,16 +63,16 @@ export class AuthService {
     }
   }
 
-  putWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}): void {
+  putWithAuth<T>(urlSuffix: string, payload: T, observableVals: {next: (value: any) => void, error: (error: string) => void}): null | Subscription {
     if(this.auth != null) {
       const currentDate: Date = new Date();
       if(this.expDate!.getTime() < currentDate.getTime()) {
         this.unsetAuth();
         observableVals.error("Login Expired");
-        return;
+        return null;
       }
       let token: string = this.auth.token!;
-      this.http.put<void>(`${this.baseUrl}/${urlSuffix}`, payload, {headers: {"auth-token": token}})
+      return this.http.put<void>(`${this.baseUrl}/${urlSuffix}`, payload, {headers: {"auth-token": token}})
       .subscribe({
         next: value => {
           observableVals.next(value);
@@ -83,7 +83,7 @@ export class AuthService {
       })
     } else {
       observableVals.error("Please log in");
-      return;
+      return null;
     }
   }
 

@@ -6,7 +6,7 @@
         <button *ngIf="authService.loggedIn && updating" class="cancel-button" (click)="cancelUpdate()">
             Cancel</button>
     </div>
-    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary?.name}}]</h1>
+    <h1 class="text-center grow-0 mb-4 mt-3 text-3xl">Library: [{{pdLibrary ? pdLibrary.name : "Loading.."}}]</h1>
     <div class="grow flex justify-end basis-0 flex-wrap gap-4">
         <ng-container class="flex" *ngIf="authService.loggedIn">
             <div class="my-auto" *ngIf="hasUserLiked; else unStarred">Starred
