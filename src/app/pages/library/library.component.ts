@@ -27,6 +27,8 @@ export class LibraryComponent implements OnInit{
     protected authService: AuthService, private dekenService: DekenService, private likeService: LikeService) {}
 
     updateAllObjs(objects: Array<PdObject>) {
+        objects.sort((a, b) => 
+            (a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1));
         let makeObjs = new Array<PdObject>();
         let currObjs = this.pdLibrary!.objects!;
         let currObj: PdObject;
@@ -40,32 +42,42 @@ export class LibraryComponent implements OnInit{
                 while(mergeObj.name < currObj.name) {
                     makeObjs.push(mergeObj);
                     j++;
-                    if(j >= objects.length) break outer;
+                    if(j >= objects.length) {
+                        makeObjs.push(... currObjs.slice(i));
+                        break outer;
+                    }
                     mergeObj = objects[j];
                 }
                 if(mergeObj.name === currObj.name) {
                     makeObjs.push(mergeObj);
                     i++;
                     j++;
-                    if(i >= currObjs.length || j >= objects.length) break outer;
+                    if(j >= objects.length) {
+                        makeObjs.push(... currObjs.slice(i));
+                        break outer;
+                    } else if(i >= currObjs.length) {
+                        makeObjs.push(... objects.slice(j));
+                        break outer;
+                    }
                     mergeObj = objects[j];
                     currObj = currObjs[i];
                     continue outer;
                 }
                 while(currObj.name < mergeObj.name) {
-                    makeObjs.push(mergeObj);
+                    makeObjs.push(currObj);
                     i++;
-                    if(i >= currObjs.length) break outer;
+                    if(i >= currObjs.length) {
+                        makeObjs.push(... objects.slice(j));
+                        break outer;
+                    }
                     currObj = currObjs[i];
                 }
             }
-            makeObjs.push(... objects.slice(j));
             this.pdLibrary!.objects = makeObjs;
         }
     }
 
     displayUpdatedObjs(objects: Array<PdObject>): void {
-        this.updating = false;
         this.updateMsg = "Updated objects: " + objects.map(elem => elem.name).join(", ");
         setTimeout(this.displayNoUpdate, 4000);
     }
@@ -86,7 +98,7 @@ export class LibraryComponent implements OnInit{
     this.currentSubscription = this.dekenService.getAddress(this.name!, {
       next: (url: string) => {
         this.updateMsg = "updating objects for " + this.name + " at url " + url + " ...";
-        this.currentSubscription = this.authService.putWithAuth("deken", url, responseObserver);
+        this.currentSubscription = this.authService.putWithAuth("deken/update", url, responseObserver);
       },
       error: (_: any) => {
         this.toastrService.error("Couldn't get URL info for " + this.name);
@@ -105,7 +117,7 @@ export class LibraryComponent implements OnInit{
     this.displayNoUpdate();
   }
 
-  displayNoUpdate() {
+  displayNoUpdate = () => {
     this.updating = false;
     this.updateMsg = "";
   }

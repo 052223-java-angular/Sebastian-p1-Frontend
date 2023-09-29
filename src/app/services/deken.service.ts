@@ -14,11 +14,14 @@ export class DekenService {
   getAddress(name: string, addressObserver: {next: (url: string) => void, error: (error: any) => void}):
   Subscription {
     // assume MacOs just for getting object names & descriptions (seems well supported)
-    return this.http.get<string>(this.baseUrl + name).subscribe({
-      next (url: string) {
-        addressObserver.next(url);
+    return this.http.get(this.baseUrl + name, {responseType: "text"}).subscribe({
+      next: (value: string) => {
+        addressObserver.next(value);
       },
-      error: addressObserver.error
+      error: (error: any) => {
+        console.log("in error");
+        addressObserver.error(error);
+      }
     });
   }
 }
